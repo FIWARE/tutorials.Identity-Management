@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+#  Command Line Interface to start all services associated with the Getting-Started Tutorial
+#
+#  For this tutorial the commands are merely a convenience script to run docker-compose
+#
+
+set -e
+
+if (( $# != 1 )); then
+    echo "Illegal number of parameters"
+    echo "usage: services [create|start|stop]"
+    exit 1
+fi
+
+command="$1"
+case "${command}" in
+	"help")
+        echo "usage: services [create|start|stop]"
+        ;;
+    "start")
+		echo -e "Starting three containers \033[1;31mKeyrock\033[0m, \033[1;30mContext-Provider\033[0m and a \033[1;30mMySQL\033[0m database."
+		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End"
+		echo -e "- \033[1;30mContext-Provider\033[0m displays a web app to log-in to the IDM"
+		echo ""
+		docker-compose --log-level ERROR -p fiware up -d --remove-orphans
+		echo ""
+		echo -e "Now open \033[4mhttp://localhost:3005/idm\033[0m"
+		;;
+	"stop")
+		echo "stopping containers"
+		docker-compose --log-level ERROR -p fiware down -v --remove-orphans
+
+		;;
+	"create")
+		echo "Obtaining MySQL image"
+		docker pull mysql:5.7
+		echo "Obtaining Latest Keyrock Image"
+		docker pull fiware/fiware-idm
+		echo "Obtaining Tutorial Context-Provider"
+		docker pull fiware/tutorials.context-provider
+		;;
+	*)
+		echo "Command not Found."
+		echo "usage: services [create|start|stop]"
+		exit 127;
+		;;
+esac
+
+
+

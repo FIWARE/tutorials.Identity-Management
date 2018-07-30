@@ -1,0 +1,80 @@
+version: "3.1"
+services:
+  idm:
+    image: fiware-idm-params
+    container_name: idm
+    hostname: idm
+    networks:
+      default:
+        ipv4_address: 172.18.1.5
+    depends_on:
+      - mysql-db
+    ports:
+      - "3005:3005"
+    environment:
+      - DATABASE_HOST=mysql-db
+      - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
+      - IDM_DB_USER=root
+      - IDM_HOST=http://localhost:3005
+      - IDM_PORT=3005
+    secrets:                
+      - my_secret_data
+
+  mysql-db:
+    restart: always
+    image: mysql:5.7
+    hostname: mysql-db
+    container_name: db-mysql
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    networks:
+      default:
+        ipv4_address: 172.18.1.6
+    environment:
+      - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
+      - "MYSQL_ROOT_HOST=172.18.1.5"
+    volumes:
+      - mysql-db:/var/lib/mysql
+    secrets:                
+      - my_secret_data
+
+  context-provider:
+    image: fiware/tutorials.context-provider
+    hostname: context-provider
+    container_name: context-provider
+    networks:
+      - default
+    expose:
+      - "3000"
+      - "3001"
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      - "DEBUG=proxy:*"
+      - "WEB_APP_PORT=3000" # Port used by the content provider proxy and web-app for viewing data
+      - "IOTA_HTTP_HOST=iot-agent"
+      - "IOTA_HTTP_PORT=7896"
+      - "DUMMY_DEVICES_PORT=3001" # Port used by the dummy IOT devices to receive commands
+      - "DUMMY_DEVICES_TRANSPORT=HTTP" # Default transport used by dummy Io devices
+      - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
+      - "CONTEXT_BROKER=http://orion:1026/v2" # URL of the context broker to update context
+      - "OPENWEATHERMAP_KEY_ID=<ADD_YOUR_KEY_ID>"
+      - "TWITTER_CONSUMER_KEY=<ADD_YOUR_CONSUMER_KEY>"
+      - "TWITTER_CONSUMER_SECRET=<ADD_YOUR_CONSUMER_SECRET>"
+
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 172.18.1.0/24
+volumes:
+   mysql-db:
+
+secrets:
+  my_secret_data:
+    file: ./secrets.txt
+
