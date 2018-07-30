@@ -31,7 +31,7 @@ append to every subsequent request. This token identifies the user, the applicat
 user is able to exercise.  **Keyrock** can then be used with other enablers can be used to limit and
 lock-down access.
 
-The following common objects are found with the IDM database:
+The following common objects are found with the **Keyrock** Identity Management database:
 
 * **User** - Any signed up user able to identify themselves with an eMail and password. Users can be assigned
  rights individually or as a group
@@ -51,7 +51,7 @@ Additionally two further non-human application objects can be secured within a F
 * **PEPProxy** - a middleware for use between generic enablers challenging the rights of a user.
 
 
- The relationship between the objects as shown:
+ The relationship between the objects can be seen below:
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/entities.png)
 
@@ -134,7 +134,7 @@ Since all interactions between the elements are initiated by HTTP requests, the 
 
 The specific architecture of each section of the tutorial is discussed below.
 
-## Kurento Configuration
+## Keyrock Configuration
 
 ```yaml
   idm:
@@ -165,7 +165,7 @@ The `idm` container is a web app server listening on a single port:
 > In a production environment, all OAuth2 Authentication should occur over HTTPS, to avoid sending
 > any sensitive information using plain-text.
 
-The `kurento-examples` container is driven by environment variables as shown:
+The `idm` container is driven by environment variables as shown:
 
 | Key |Value|Description|
 |-----|-----|-----------|
@@ -228,9 +228,6 @@ The `mysql-db` container is driven by environment variables as shown:
 |-------------------|----------|------------------------------------------|
 |MYSQL_ROOT_PASSWORD|`123`.    | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)|
 |MYSQL_ROOT_HOST    |`root`| By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
-
-
-
 
 
 
