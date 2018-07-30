@@ -1,0 +1,65 @@
+@startuml
+skinparam object {
+  BackgroundColor #f5f5f5
+  ArrowColor #4c4c4c
+  BorderColor #ff7059
+}
+
+
+
+object Application
+
+Application : id
+Application : name
+Application : description
+
+object Organization
+
+Organization : id
+Organization : name
+Organization : description
+
+object User
+
+User : id
+User : username
+User : email
+User : password
+
+object Permission
+
+Permission : id
+Permission : name
+Permission : description
+
+object Role
+
+Role : id
+Role : name
+Role : description
+
+
+object IoTAgent
+
+IoTAgent : id
+IoTAgent : password
+
+object PEPProxy
+
+PEPProxy : id
+PEPProxy : password
+
+object OrganizationRole
+
+Organization "1" o-- "*" Role : has >
+User "0 " --o " *" Application : uses >
+Application "0" *-- "*" IoTAgent : operates >
+Application "0" *-- "*" PEPProxy : operates >
+Application "0" o-- "*" Organization : uses <
+Application "1" o-- "*" Role : offers >
+User "1" o-- "*" Role : has >
+Role "1" o-- "*" Permission : has >
+User "0..*" - "0..*" Organization
+(Organization, User) .. OrganizationRole : associates
+User -[hidden]- PEPProxy
+@enduml
