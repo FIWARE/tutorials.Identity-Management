@@ -5,8 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This tutorial is an introduction to [FIWARE Keyrock](http://fiware-idm.readthedocs.io/en/latest/) - a generic enabler which introduces
-**Identity Management** into FIWARE services. The tutorial explains how to create users and applications, and how to assign
-roles and permissions to them.
+**Identity Management** into FIWARE services. The tutorial explains how to create users and organizations in preparation to assign
+roles and permissions to them in a later tutorial.
 
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/) commands used
 to access the **Keyrock** REST API - [Postman documentation](http://fiware.github.io/tutorials.Identity-Management/) is also available.
@@ -15,7 +15,6 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 
 # Contents
 
-- [Contents](#contents)
 - [Introduction to Identity Management](#introduction-to-identity-management)
   * [Standard Concepts of Identity Management](#standard-concepts-of-identity-management)
   * [OAuth2](#oauth2)
@@ -27,31 +26,33 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
   * [MySQL Configuration](#mysql-configuration)
 - [Start Up](#start-up)
 - [Identity Management](#identity-management)
+    + [Dramatis Personae](#dramatis-personae)
     + [Reading directly from the Keyrock MySQL Database](#reading-directly-from-the-keyrock-mysql-database)
     + [UUIDs within Keyrock](#uuids-within-keyrock)
   * [Logging In](#logging-in)
-- [Administrating Users](#administrating-users)
+    + [Create Token with Password](#create-token-with-password)
+    + [Get Token Info](#get-token-info)
+    + [Refresh Token](#refresh-token)
+- [Administrating User Accounts](#administrating-user-accounts)
   * [User CRUD Actions](#user-crud-actions)
-- [Adminstrating Organizations](#adminstrating-organizations)
+    + [Creating Users](#creating-users)
+    + [Read Information About a User](#read-information-about-a-user)
+    + [List all Users](#list-all-users)
+    + [Update a User](#update-a-user)
+    + [Delete a User](#delete-a-user)
+- [Grouping User Accounts under Organizations](#grouping-user-accounts-under-organizations)
   * [Organization CRUD Actions](#organization-crud-actions)
+    + [Create an Organization](#create-an-organization)
+    + [Read Organization Details](#read-organization-details)
+    + [List all Organizations](#list-all-organizations)
+    + [Update an Organization](#update-an-organization)
+    + [Delete an Organization](#delete-an-organization)
   * [Users within an Organization](#users-within-an-organization)
-- [Administering Applications](#administering-applications)
-  * [Application CRUD Actions](#application-crud-actions)
-  * [Roles and Permissions](#roles-and-permissions)
-  * [Application Users and Other Actors](#application-users-and-other-actors)
-- [Assigning Roles and Permissions](#assigning-roles-and-permissions)
-  * [Assigning Permissions to Roles](#assigning-permissions-to-roles)
-    + [List Permissions of a Role](#list-permissions-of-a-role)
-    + [Add a Permission to a Role](#add-a-permission-to-a-role)
-    + [Remove a Permission from a Role](#remove-a-permission-from-a-role)
-  * [Assigning Roles to Organizations](#assigning-roles-to-organizations)
-    + [List Roles of an Organization](#list-roles-of-an-organization)
-    + [Add a Role to an Organization](#add-a-role-to-an-organization)
-    + [Remove a Role from an Organization](#remove-a-role-from-an-organization)
-  * [Assigning Roles to Users](#assigning-roles-to-users)
-    + [List Roles of a Users](#list-roles-of-a-users)
-    + [Add a Role to a Users](#add-a-role-to-a-users)
-    + [Remove a Role from a Users](#remove-a-role-from-a-users)
+    + [Add a User as a Member of an Organization](#add-a-user-as-a-member-of-an-organization)
+    + [Add a User as an Owner of an Organization](#add-a-user-as-an-owner-of-an-organization)
+    + [List Users within an Organization](#list-users-within-an-organization)
+    + [Read User Roles within an Organization](#read-user-roles-within-an-organization)
+    + [Remove a User from an Organization](#remove-a-user-from-an-organization)
 - [Next Steps](#next-steps)
 
 # Introduction to Identity Management
@@ -307,11 +308,27 @@ Where `<command>` will vary depending upon the exercise we wish to activate.
 
 # Identity Management
 
+As the default super-admin user `admin@test.com` with a password of `1234`, we will set up a series of user accounts and assign them to
+relevant organizations within the system.
+
+### Dramatis Personae
+
+The following people legitimately have accounts within the Application
+
+* Alice, she will be the Administrator of the **Keyrock** Application
+* Bob, the Regional Manager of the supermarket chain - he has several store managers under him:
+  * Manager1
+  * Manager2
+* Charlie, the Head of Security of the supermarket chain  - he has several store detectives under him:
+  * Detective1
+  * Detective2
+
+
+
 ### Reading directly from the Keyrock MySQL Database
 
 All Identify Management records  and releationships are held within the the attached MySQL database. This can be
 accessed by entering the running Docker container as shown:
-
 
 ```console
 docker exec -it db-mysql bash
@@ -339,16 +356,11 @@ querying for records .Record ids use Universally Unique Identifiers - UUIDs.
 | Key |Description                        | Sample Value |
 |-----|-----------------------------------|--------------|
 |`keyrock`| URL for the location of the **Keyrock** service|`localhost:3005`|
-|`X-Auth-token`| Token received in the Header when logging in as a user |`51f2e380-c959-4dee-a0af-380f730137c3`|
-|`X-Subject-token`|Token received in the Header when authentication a service, alternatively repeat the user token |`51f2e380-c959-4dee-a0af-380f730137c3`|
+|`X-Auth-token`| Token received in the Header when logging in as a user - in other words *"Who am I?"* |`51f2e380-c959-4dee-a0af-380f730137c3`|
+|`X-Subject-token`|Token added to requests to define *"Who do I want to inquire about?"* - This can also be a repeat the `X-Auth-token` defined above |`51f2e380-c959-4dee-a0af-380f730137c3`|
 |`user-id`| id of an existing user, found with the `user`  table |`96154659-cb3b-4d2d-afef-18d6aec0518e`|
-|`application-id`| id of an existing application, found with the `oauth_client` table |`c978218d-ad63-4427-b12b-542b81299cfb`|
-|`role-id`| id of an existing role, found with the `role` table |`d28baa00-839e-4b45-a6b2-1cec563942ee`|
-|`permission-id`| id of an existing permission, found with the `permission`  table |`6b6cd19c-9398-4834-9ba1-1616c57139c0`|
 |`organization-id`| id of an existing organization, found with the `organization`  table |`e424ed98-c966-46e3-b161-a165fd31bc01`|
 |`organization-role-id`| type of role a user has within an organization either `owner` or `member`|`member`|
-|`iot-agent-id`| id of an existing IoT Agent, found with the `iot`  table  |`iot_sensor_f3d0245b-3330-4e64-a513-81bf4b0dae64`|
-|`pep-proxy-id`| id of an existing PEP Proxy, found with the `pep_proxy`  table  |`iot_sensor_f3d0245b-3330-4e64-a513-81bf4b0dae64`|
 
 Tokens are designed to expire after a set period. If the `X-Auth-token` value you are using has expired, log-in again to obtain a new token.
 
@@ -407,7 +419,9 @@ Connection: keep-alive
 ### Get Token Info
 
 `{{X-Auth-token}}` and `{{X-Subject-token}}` should be taken from the previous request,
-in the case of the response above, both variables should be set to `d848eb12-889f-433b-9811-6a4fbf0b86ca`
+in the case of the response above, both variables should be set to `d848eb12-889f-433b-9811-6a4fbf0b86ca` - this indicates that *the
+user authorized with the token `{{X-Auth-token}}`  is enquiring about the user holding the token  `{{X-Subject-token}}`* - in this
+case we only have one user within the **Keyrock** application, and that user is enquiring about himself.
 
 #### :two: Request:
 
@@ -485,7 +499,7 @@ Connection: keep-alive
 }
 ```
 
-# Administrating Users
+# Administrating User Accounts
 
 Users accounts are at the heart of any identity management system. The essential fields of every account hold a unique user name
 and email address to identify the user, along with a password for authentication. The other optional fields
@@ -514,7 +528,7 @@ to read or modify other user accounts. The standard CRUD actions are assigned to
 under the `/v1/users` endpoint.
 
 
-### Create a User
+### Creating Users
 
 To create a new user, send a POST request to the `/v1/users` endpoint containing the `username`,`email` and `password` along with the `X-Auth-token` header
 from a previously logged in administrative user.
@@ -562,6 +576,97 @@ To grant super-admin power to a newly created user account, the database can be 
 update user set admin = 1 where username='alice';
 ```
 
+Additional users can be added by making repeated POST requests.
+
+For example to create additional accounts for Bob, the Regional Manager, Charlie, the Head of Security and their direct reports
+
+```console
+curl -iX POST \
+  'http://localhost:3005/v1/users' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "user": {
+    "username": "bob",
+    "email": "bob-the-manager@test.com",
+    "password": "test"
+  }
+}'
+```
+```console
+curl -iX POST \
+  'http://localhost:3005/v1/users' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "user": {
+    "username": "charlie",
+    "email": "charlie-security@test.com",
+    "password": "test"
+  }
+}'
+```
+```console
+curl -iX POST \
+  'http://localhost:3005/v1/users' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "user": {
+    "username": "manager1",
+    "email": "manager1@test.com",
+    "password": "test"
+  }
+}'
+```
+```console
+curl -iX POST \
+  'http://localhost:3005/v1/users' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "user": {
+    "username": "manager1",
+    "email": "manager1@test.com",
+    "password": "test"
+  }
+}'
+```
+```console
+curl -iX POST \
+  'http://localhost:3005/v1/users' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "user": {
+    "username": "detective1",
+    "email": "detective1@test.com",
+    "password": "test"
+  }
+}'
+```
+```console
+curl -iX POST \
+  'http://localhost:3005/v1/users' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "user": {
+    "username": "detective1",
+    "email": "detective1@test.com",
+    "password": "test"
+  }
+}'
+```
+
+
+
 
 ### Read Information About a User
 
@@ -587,7 +692,7 @@ The response contains basic details of the account in question:
     "user": {
         "id": "96154659-cb3b-4d2d-afef-18d6aec0518e",
         "username": "alice",
-        "email": "alice@test.com",
+        "email": "alice-the-admin@test.com",
         "enabled": true,
         "admin": false,
         "image": "default",
@@ -616,7 +721,7 @@ within their own organization. Listing users can be done by making a GET request
         {
             "id": "06a2140f-ccc3-49e5-82a5-76bae48b38ba",
             "username": "alice",
-            "email": "alice@test.com",
+            "email": "alice-the-admin@test.com",
             "enabled": true,
             "gravatar": false,
             "date_password": "2018-07-30T11:41:14.000Z",
@@ -626,7 +731,7 @@ within their own organization. Listing users can be done by making a GET request
         {
             "id": "27e6ae58-adc1-4aaf-a6a2-f207946ba57e",
             "username": "bob",
-            "email": "bob@test.com",
+            "email": "bob-the-manager@test.com",
             "enabled": true,
             "gravatar": false,
             "date_password": "2018-07-30T10:01:12.000Z",
@@ -658,7 +763,7 @@ curl -X PATCH \
   -d '{
   "user": {
       "username": "alice",
-      "email": "alice@test.com",
+      "email": "alice-the-admin@test.com",
       "enabled": true,
       "gravatar": false,
       "date_password": "2018-07-26T15:25:14.000Z",
@@ -700,23 +805,31 @@ curl -X DELETE \
 
 ---
 
-# Adminstrating Organizations
+# Grouping User Accounts under Organizations
 
-For any identity management system of a reasonable size, it is useful to be able to assign roles to groups of users, rather than setting
-them up individually. Since user administration is a time consuming business, it is also necessary to be able to delegate the responsibility
+For any identity management system of a reasonable size, it is useful to be able to assign
+roles to groups of users, rather than setting them up individually. Since user administration
+is a time consuming business, it is also necessary to be able to delegate the responsibility
 of managing these group of users down to other accounts with a lower level of access.
 
-Consider our supermarket chain for example, there could be a group of users (Managers) who can change the prices of products within the store,
-and another group of users (Store Detectives) who can lock and unlock door after closing time. Rather than give access to each individual account,
+Consider our supermarket chain for example, there could be a group of users (Managers) who
+can change the prices of products within the store, and another group of users (Store Detectives)
+who can lock and unlock door after closing time. Rather than give access to each individual account,
 it would be easier to assign the rights to an organization and then add users to the groups.
 
-Furthermore, Alice, the **Keyrock** super-admin does not need to explicitly add the users to each organization herself  - she could
-delegate that right to an admin within each organization. For example Bob the regional manager would be given the admin rights to add and
-remove users to the Managers organization and  Charlie the Head of Security could be given the right to administer the Store Detectives
-organization.
+Furthermore, Alice, the **Keyrock** admininstrator does not need to explicitly add additional user
+accounts to each organization herself  - she could delegate that right to an owner within each organization.
+For example Bob the Regional Manager would be made the owner of the *management* organization and could
+add and remove addition manager accounts (such as `manager1` and `manager2`) to that organization
+whereas Charlie the Head of Security could be handed an ownership  role in the *security* organization and add
+additional store detectives to that organization.
 
-Note that neither Bob nor Charlie would be able to alter the permissions of the application themselves, merely add and remove existing
-user accounts to the organization they control.
+Note that Bob does not have the rights to alter the membership list of the *security* organization and
+Charlie does not have the rights to alter the membership list of the *management* organization.
+Furthermore neither Bob nor Charlie would be able to alter the permissions of the application themselves,
+merely add and remove existing user accounts to the organization they control.
+
+Creating an application and setting-up the permissions is not coveredhere as it is the subject of the next tutorial.
 
 
 ## Organization CRUD Actions
@@ -725,198 +838,281 @@ The standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET,
 
 ### Create an Organization
 
+
+#### :nine: Request:
+
+```
+curl -X POST \
+  'http://localhost:3005/v1/organizations' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+  "organization": {
+    "name": "Security",
+    "description": "This group is for the store detectives"
+  }
+}'
+```
+
+#### Response:
+
+```json
+{
+    "organization": {
+        "id": "18deea43-e12a-4018-a45a-664c3158780d",
+        "image": "default",
+        "name": "Security",
+        "description": "This group is for the store detectives"
+    }
+}
+```
+
 ### Read Organization Details
+
+#### :one::zero: Request:
+
+```console
+curl -X GET \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
+
+```json
+{
+    "organization": {
+        "id": "18deea43-e12a-4018-a45a-664c3158780d",
+        "name": "Security",
+        "description": "This group is for the store detectives",
+        "website": null,
+        "image": "default"
+    }
+}
+```
 
 ### List all Organizations
 
+
+#### :one::one: Request:
+
+```console
+curl -X GET \
+  'http://{{keyrock}}/v1/organizations' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
+
+
+Note that XXXXXXX .XXXX.XXXXXX
+
+```json
+{
+    "organizations": [
+        {
+            "role": "owner",
+            "Organization": {
+                "id": "18deea43-e12a-4018-a45a-664c3158780d",
+                "name": "Security",
+                "description": "This group is for the store detectives",
+                "image": "default",
+                "website": null
+            }
+        },
+        {
+            "role": "owner",
+            "Organization": {
+                "id": "a45f9b5a-dd23-4d0f-a0d4-e97e2d7431a3",
+                "name": "Management",
+                "description": "This group is for the store manangers",
+                "image": "default",
+                "website": null
+            }
+        }
+    ]
+}
+```
+
 ### Update an Organization
+
+
+#### :one::two: Request:
+
+```console
+curl -X PATCH \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: ad426eee-0be4-4fbc-99cd-a3d2ff04eaa7' \
+  -H 'X-Auth-token: {{X-Auth-token}}' \
+  -d '{
+    "organization": {
+        "name": "FIWARE Security",
+        "description": "The FIWARE Foundation is the legal independent body promoting, augmenting open-source FIWARE technologies",
+        "website": "http://fiware.org"
+    }
+}'
+```
+
+
+#### Response:
+
+```json
+{
+    "values_updated": {
+        "name": "FIWARE Security",
+        "description": "The FIWARE Foundation is the legal independent body promoting, augmenting open-source FIWARE technologies",
+        "website": "http://fiware.org"
+    }
+}
+```
 
 ### Delete an Organization
 
+#### :one::three: Request:
+
+```console
+curl -X DELETE \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 481affbe-3087-4119-90c0-c55f7d4847f3'
+```
+
+
 ## Users within an Organization
 
-Users within an Organization are assigned to one of types - `admin` or `member`.  The members of an organization inherit all of the
-roles and permissions assigned to the organization itself. In addition, admins of an organization are able to add an remove other
-members and admins.
+Users within an Organization are assigned to one of types - `owner` or `member`.  The members of an organization inherit all of the
+roles and permissions assigned to the organization itself. In addition, owners of an organization are able to add an remove other
+members and owners.
+
+
+
+### Add a User as a Member of an Organization
+
+#### :one::four: Request:
+
+```console
+curl -X POST \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 9cbdb720-8d16-4503-83c5-b350248dc34b' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
+
+```json
+{
+    "user_organization_assignments": {
+        "role": "member",
+        "organization_id": "18deea43-e12a-4018-a45a-664c3158780d",
+        "user_id": "5e482345-2c48-410e-ae03-203d67a43cea"
+    }
+}
+```
+
+
+### Add a User as an Owner of an Organization
+
+#### :one::five: Request:
+
+```console
+curl -X POST \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/owner' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 4ade9d63-6f40-4191-87c8-912e91b3f1b0' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
+
+```json
+{
+    "user_organization_assignments": {
+        "role": "owner",
+        "user_id": "5e482345-2c48-410e-ae03-203d67a43cea",
+        "organization_id": "18deea43-e12a-4018-a45a-664c3158780d"
+    }
+}
+```
+
 
 ### List Users within an Organization
 
-### Add a User to an Organization
 
-### Read User Role within an Organization
+#### :one::six: Request:
+
+```console
+curl -X GET \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}/users' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 79920300-1193-45bd-9b7f-8a07ccf5ac1e' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+
+#### Response:
+
+```json
+{
+    "organization_users": [
+        {
+            "user_id": "admin",
+            "organization_id": "18deea43-e12a-4018-a45a-664c3158780d",
+            "role": "owner"
+        },
+        {
+            "user_id": "5e482345-2c48-410e-ae03-203d67a43cea",
+            "organization_id": "18deea43-e12a-4018-a45a-664c3158780d",
+            "role": "member"
+        }
+    ]
+}
+```
+
+### Read User Roles within an Organization
+
+
+#### :one::seven: Request:
+
+```console
+curl -X GET \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles' \
+  -H 'Accept: application/json' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: c99d09d6-d3b4-4b18-9902-2c030421264e' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
+#### Response:
 
 ### Remove a User from an Organization
 
----
-
-
-# Administering Applications
-
-Any FIWARE application can be broken down into a collection of microservices. These microservices connect together to read
-and alter the state of the real world. Security can be added to these services by restricting actions on these resources
-down to users how have appropriate permissions. It is therefore necessary to define an application to offer a set of permissible
-actions and to hold a list of permitted users (or groups of users i.e. an Organization)
-
-Applications are therefore a conceptual bucket holding who can do what on which resource.
-
-
-## Application CRUD Actions
-
-The standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/applications` endpoint.
-
-### Create an Application
-
-### Read Application Details
-
-### List all Applications
-
-### Update an Application
-
-### Delete an Application
-
-
-
-## Roles and Permissions
-
-A permission is an allowable action on a resource. A role consists of a group of permissions, in other words a series of
-permitted actions over a group of resources. Roles are usually usually given a description with a broad scope so that
-they can be assigned to a wide range of users or organizations for example a *Reader* role could be able to access but
-not update a series of devices.
-
-There are two pre-defined roles with **Keyrock** :
-
-* a *Purchaser* who can
-   + Get and assign all public application roles
-* a *Provider* who can:
-   + Get and assign only public owned roles
-   + Get and assign all public application roles
-   + Manage authorizations
-   + Manage roles
-   + Manage the application
-   + Get and assign all internal application roles
-
-Using our Supermarket Store Example, Alice the admin would be assigned the *Provider* role, she could then create any additional
-application-specific  roles needed (such as *Door Locker* or *Price Changer*) She could then delegate *Purchaser* roles to Bob
-the regional manager and Charlie, Head of Security, who could assign the roles as necessary.
-
-
-<h2>Roles within an Application</h2>
-
-A defined role cannot be assigned to a user unless it the role has already been associated to an application
-
-### List Roles
-
-### Create a Role
-
-### Read Role Details
-
-### Delete a Role
-
-<h2>Permissions within an Application<h2>
-
-### List Permissions
-
-### Create a Permission
-
-### Read Permission Details
-
-### Delete an Permission
-
-
-
-## Application Users and Other Actors
-
-
-
-
-<h2>Users of an Application</h2>
-
-### List Users of an Application
-
-### Add a User to an Application
-
-### Remove a User from an Application
-
-
-<h2>Organizations using an Application</h2>
-
-### List Organizations of an Application
-
-### Add a Organization to an Application
-
-### Remove a Organization from an Application
-
-
-<h2>Other Actors within an Application</h2>
-
-Although
-
-### Create an PEP Proxy
-
-### Read PEP Proxy Details
-
-### List PEP Proxies
-
-### Reset the Password of an PEP Proxy
-
-### Delete an PEP Proxy
-
-### Create an IoT Agent
-
-### Read IoT Agent Details
-
-### List IoT Agents
-
-### Reset the Password of an IoT Agent
-
-### Delete an IoT Agent
-
----
-
-# Assigning Roles and Permissions
-
-Finally
-
-## Assigning Permissions to Roles
-
-### List Permissions of a Role
-
-### Add a Permission to a Role
-
-### Remove a Permission from a Role
-
-
-
-
-## Assigning Roles to Organizations
-
-### List Roles of an Organization
-
-### Add a Role to an Organization
-
-### Remove a Role from an Organization
-
-
-
-## Assigning Roles to Users
-
-### List Roles of a Users
-
-### Add a Role to a Users
-
-### Remove a Role from a Users
-
-
-
-After.  rnm
-
-
-
-
-
-
-
-
+#### :one::eight: Request:
+
+```console
+curl -X DELETE \
+  'http://{{keyrock}}/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
+  -H 'Accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
 
 
 
