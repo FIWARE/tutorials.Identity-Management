@@ -855,7 +855,7 @@ Once signed-in, users are able to create and update organizations for themselves
 
 #### REST API
 
-Alterntively, the standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/organizations` endpoint.
+Alternatively, the standard CRUD actions are assigned to the appropriate HTTP verbs (POST, GET, PATCH and DELETE) under the `/v1/organizations` endpoint.
 
 ### Create an Organization
 
@@ -864,7 +864,7 @@ To create a new organization, send a POST request to the `/v1/organizations` end
 
 #### :nine: Request:
 
-```
+```console
 curl -iX POST \
   'http://localhost:3005/v1/organizations' \
   -H 'Accept: application/json' \
