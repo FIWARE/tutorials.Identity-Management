@@ -4,7 +4,7 @@
 [![Documentation](https://readthedocs.org/projects/fiware-tutorials/badge/?version=latest)](https://fiware-tutorials.readthedocs.io/en/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-このチュートリアルは、[FIWARE Keyrock](http://fiware-idm.readthedocs.io/en/latest/) の紹介です。これは、FIWARE サービスに **ID管理** (Identity Management) を導入する Generic Enabler です。このチュートリアルでは、ユーザとアプリケーションの作成方法について、後のチュートリアルで、それらにロールと権限の割り当てる方法について説明します。
+このチュートリアルは、[FIWARE Keyrock](http://fiware-idm.readthedocs.io/en/latest/) の紹介です。これは、FIWARE サービスに **ID管理** (Identity Management) を導入する Generic Enabler です。このチュートリアルでは、ユーザと組織の作成方法について、後のチュートリアルで、それらにロールと権限の割り当てる方法について説明します。
 
 このチュートリアルでは、**Keyrock** GUI を使用したインタラクションの例や、**Keyrock** REST API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマンド、[Postmanのドキュメント](http://fiware.github.io/tutorials.Identity-Management/)も使用できます。
 
