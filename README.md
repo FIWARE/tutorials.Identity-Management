@@ -357,7 +357,7 @@ Tokens are designed to expire after a set period. If the `X-Auth-token` value yo
 
 ## :arrow_forward: Video : Creating User Accounts with the Keyrock GUI
 
-[![](http://img.youtube.com/vi/dHyVTan6bUY/0.jpg)](https://www.youtube.com/watch?v=dHyVTan6bUY " Creating User Accounts")
+[![](http://img.youtube.com/vi/dtKsjGbJ7Xc/0.jpg)](https://www.youtube.com/watch?v=dtKsjGbJ7Xc " Creating User Accounts")
 
 Click on the image above to see a video demonstrating how to create users with the **Keyrock** GUI
 
