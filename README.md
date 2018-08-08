@@ -13,6 +13,8 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2150531e68299d46f937)
 
+* このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
+
 # Contents
 
 - [Identity Management](#identity-management)
@@ -158,7 +160,7 @@ command line functionality similar to a Linux distribution on Windows.
 # Architecture
 
 This introduction will only make use of one FIWARE component - the [Keyrock](http://fiware-idm.readthedocs.io/)
-Identity Management Generic Enabler. Usage of **Keyrock** alone alone is insufficient for an application to qualify
+Identity Management Generic Enabler. Usage of **Keyrock** alone is insufficient for an application to qualify
  as *“Powered by FIWARE”*.  Additionally will be persisting user data in a **MySQL**  database.
 
 
@@ -273,7 +275,7 @@ The `mysql-db` container is driven by environment variables as shown:
 
 | Key               |Value.    |Description                               |
 |-------------------|----------|------------------------------------------|
-|MYSQL_ROOT_PASSWORD|`123`.    | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)|
+|MYSQL_ROOT_PASSWORD|`123`     | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)|
 |MYSQL_ROOT_HOST    |`root`| By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
 # Start Up
@@ -308,7 +310,7 @@ Where `<command>` will vary depending upon the exercise we wish to activate.
 
 ### Reading directly from the Keyrock MySQL Database
 
-All Identify Management records  and relationships are held within the the attached MySQL database. This can be
+All Identify Management records  and relationships are held within the attached MySQL database. This can be
 accessed by entering the running Docker container as shown:
 
 ```console
@@ -353,12 +355,12 @@ screen of the **Keyrock** GUI - `http://localhost:3005/idm`
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/log-in.png)
 
-Enter a user name and password to enter the **Keyrock** application. The default super-user has the values `admin@test.com` and `1234`.
+Enter a user name and password to enter the **Keyrock** application. The default super-admin user has the values `admin@test.com` and `1234`.
 
 
 ### Create Token with Password
 
-The following example logs in using the Admin Super-User - it is the equivalent of using the log-in screen of the GUI
+The following example logs in using the super-admin user - it is the equivalent of using the log-in screen of the GUI
 
 #### :one: Request:
 ```console
@@ -491,7 +493,7 @@ Connection: keep-alive
 
 # Administrating User Accounts
 
-Users accounts are at the heart of any identity management system. The essential fields of every account hold a unique user name
+User accounts are at the heart of any identity management system. The essential fields of every account hold a unique user name
 and email address to identify the user, along with a password for authentication. The other optional fields
 add more information about the user such as a user website, description or avatar.
 
@@ -1023,7 +1025,7 @@ curl -iX DELETE \
 ## Users within an Organization
 
 Users within an Organization are assigned to one of types - `owner` or `member`.  The members of an organization inherit all of the
-roles and permissions assigned to the organization itself. In addition, owners of an organization are able to add an remove other
+roles and permissions assigned to the organization itself. In addition, owners of an organization are able to add and remove other
 members and owners.
 
 
@@ -1088,7 +1090,7 @@ The response lists the user's current role within the organization (i.e. `owner`
 
 ### List Users within an Organization
 
-Listing users within an organization is an `owner` or super-admin permission requiring the `X-Auth-token`
+Listing users within an organization is an `owner` or super-admin permission requiring the `X-Auth-token`.
 Listing users can be done by making a GET request to the  `/v1/organizations/{{organization-id}}/users` endpoint.
 
 #### :one::six: Request:
