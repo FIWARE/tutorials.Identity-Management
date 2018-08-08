@@ -20,6 +20,7 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 - [Identity Management](#identity-management)
   * [Standard Concepts of Identity Management](#standard-concepts-of-identity-management)
   * [OAuth2](#oauth2)
+  * [:arrow_forward: Video : Introduction to Keyrock](#arrow_forward-video--introduction-to-keyrock)
 - [Prerequisites](#prerequisites)
   * [Docker](#docker)
   * [Cygwin](#cygwin)
@@ -29,6 +30,7 @@ to access the **Keyrock** REST API - [Postman documentation](http://fiware.githu
 - [Start Up](#start-up)
     + [Reading directly from the Keyrock MySQL Database](#reading-directly-from-the-keyrock-mysql-database)
     + [UUIDs within Keyrock](#uuids-within-keyrock)
+  * [:arrow_forward: Video : Creating User Accounts with the Keyrock GUI](#arrow_forward-video--creating-user-accounts-with-the-keyrock-gui)
   * [Logging In](#logging-in)
     + [Create Token with Password](#create-token-with-password)
     + [Get User Information via a Token](#get-user-information-via-a-token)
@@ -134,6 +136,12 @@ third party to give them  full access - you merely permit the relevant access wh
 or Read-Write and such access can be defined down to a granular level. Furthermore there is provision for
 revoking access at any time, leaving the resource owner in control of who can access what.
 
+
+## :arrow_forward: Video : Introduction to Keyrock
+
+[![](http://img.youtube.com/vi/dHyVTan6bUY/0.jpg)](https://www.youtube.com/watch?v=dHyVTan6bUY "Introduction")
+
+Click on the image above to see an introductory video
 
 # Prerequisites
 
@@ -346,6 +354,12 @@ querying for records. Record IDs use Universally Unique Identifiers - UUIDs.
 |`organization-role-id`| type of role a user has within an organization either `owner` or `member`|`member`|
 
 Tokens are designed to expire after a set period. If the `X-Auth-token` value you are using has expired, log-in again to obtain a new token.
+
+## :arrow_forward: Video : Creating User Accounts with the Keyrock GUI
+
+[![](http://img.youtube.com/vi/dHyVTan6bUY/0.jpg)](https://www.youtube.com/watch?v=dHyVTan6bUY " Creating User Accounts")
+
+Click on the image above to see a video demonstrating how to create users with the **Keyrock** GUI
 
 ## Logging In
 
