@@ -473,7 +473,7 @@ Connection: keep-alive
 次の人々は、アプリケーション内にアカウントを正当に持っています。
 
 * Alice, 彼女は **Keyrock** アプリケーションの管理者になります
-* Bod, スーパー・マーケット・チェーンの地域マネージャ。彼の下に数人のマネージャがいます :
+* Bob, スーパー・マーケット・チェーンの地域マネージャ。彼の下に数人のマネージャがいます :
   * Manager1
   * Manager2
 * Charlie, スーパー・マーケットチェーン・のセキュリティ責任者。彼の下に数人の警備員がいます。
@@ -929,7 +929,7 @@ curl -iX PATCH \
   -d '{
     "organization": {
         "name": "FIWARE Security",
-        "description": "The FIWARE Foundation is the legal independent body promoting, augmenting open-source FIWARE technologies",
+        "description": "The FIWARE Foundation is the ...",
         "website": "http://fiware.org"
     }
 }'
@@ -943,7 +943,7 @@ curl -iX PATCH \
 {
     "values_updated": {
         "name": "FIWARE Security",
-        "description": "The FIWARE Foundation is the legal independent body promoting, augmenting open-source FIWARE technologies",
+        "description": "The FIWARE Foundation is the ..",
         "website": "http://fiware.org"
     }
 }
