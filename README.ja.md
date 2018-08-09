@@ -8,7 +8,7 @@
 
 このチュートリアルでは、**Keyrock** GUI を使用したインタラクションの例や、**Keyrock** REST API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマンド、[Postmanのドキュメント](http://fiware.github.io/tutorials.Identity-Management/)も使用できます。
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2150531e68299d46f937)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/5f9e1736f979b86ec94a)
 
 # Contents
 

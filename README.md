@@ -11,7 +11,7 @@ roles and permissions to them in a later tutorial.
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/) commands used
 to access the **Keyrock** REST API - [Postman documentation](http://fiware.github.io/tutorials.Identity-Management/) is also available.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2150531e68299d46f937)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/5f9e1736f979b86ec94a)
 
 * このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
