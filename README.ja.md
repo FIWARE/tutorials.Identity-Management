@@ -15,6 +15,7 @@
 - [ID 管理](#identity-management)
   * [ID 管理の標準概念](#standard-concepts-of-identity-management)
   * [OAuth2](#oauth2)
+  * [:arrow_forward: ビデオ : Keyrock のイントロダクション](#arrow_forward-video--introduction-to-keyrock)
 - [前提条件](#prerequisites)
   * [Docker](#docker)
   * [Cygwin](#cygwin)
@@ -24,6 +25,7 @@
 - [起動](#start-up)
     + [Keyrock MySQL データベースからの直接読み込み](#reading-directly-from-the-keyrock-mysql-database)
     + [Keyrock 内の UUIDs](#uuids-within-keyrock)
+  * [:arrow_forward: ビデオ: Keyrock GUI でのユーザ・アカウントの作成](#arrow_forward-video--creating-user-accounts-with-the-keyrock-gui)
   * [ログイン](#logging-in)
     + [パスワードでトークンを作成](#create-token-with-password)
     + [トークンを介してユーザ情報を取得](#get-user-information-via-a-token)
@@ -105,6 +107,13 @@ Keyrock は [OAuth2](https://oauth.net/2/) を使用して、サードパーテ�
 主なコンセプトは、**ユーザ**と**アプリケーション**の両方が、標準の OAuth2 チャレンジ・レスポンス・メカニズムを使用して、最初に自分自身を識別する必要があるということです。その後、ユーザは、その後のすべてのリクエストに追加するトークンを割り当てます。このトークンは、ユーザ、アプリケーション、およびユーザが実行できる権利を識別します。**Keyrock** を使用して、他の Enabler がアクセスを制限し、ロック・ダウンすることができます。アクセス・フローの詳細については、以下および後続のチュートリアルで説明します。
 
 OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与えるために、自分のユーザ名とパスワードを第三者に公開する必要がないことです。関連するアクセスを許可するだけです。読み取り専用または読み書きのいずれかになる関連アクセスを許可するだけで、このようなアクセスは細かいレベルまで定義できます。さらに、いつでもアクセスを取り消すための規定があり、リソースのオーナーは誰に何にアクセスできるかを制御できます。
+
+<a name="arrow_forward-video--introduction-to-keyrock"></a>
+## :arrow_forward: ビデオ : Keyrock のイントロダクション
+
+[![](http://img.youtube.com/vi/dHyVTan6bUY/0.jpg)](https://www.youtube.com/watch?v=dHyVTan6bUY "Introduction")
+
+イントロダクションのビデオを見るには上記の画像をクリックしてください。
 
 <a name="prerequisites"></a>
 # 前提条件
@@ -300,6 +309,13 @@ Keyrock 内のすべての IDs とトークンは変更される可能性があ�
 |`organization-role-id`| `owner` または `member` のいずれかの組織内でユーザが持つロールのタイプ|`member`|
 
 トークンは、一定期間後に期限切れになるように設計されています。使用している `X-Auth-token` 値の有効期限が切れている場合は、再度ログインして新しいトークンを取得してください。
+
+<a name="arrow_forward-video--creating-user-accounts-with-the-keyrock-gui"></a>
+## :arrow_forward: ビデオ: Keyrock GUI でのユーザ・アカウントの作成
+
+[![](http://img.youtube.com/vi/dtKsjGbJ7Xc/0.jpg)](https://www.youtube.com/watch?v=dtKsjGbJ7Xc " Creating User Accounts")
+
+上の画像をクリックすると、**Keyrock** GUI でユーザ・アカウントを作成する方法を示すビデオが表示されます
 
 <a name="logging-in"></a>
 ## ログイン
