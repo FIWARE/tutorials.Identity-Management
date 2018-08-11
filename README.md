@@ -167,7 +167,7 @@ command line functionality similar to a Linux distribution on Windows.
 
 # Architecture
 
-This introduction will only make use of one FIWARE component - the [Keyrock](http://fiware-idm.readthedocs.io/)
+This introduction will only make use of one FIWARE component - the [Keyrock](http://fiware-idm.readthedocs.io/en/latest/)
 Identity Management Generic Enabler. Usage of **Keyrock** alone is insufficient for an application to qualify
  as *“Powered by FIWARE”*.  Additionally will be persisting user data in a **MySQL**  database.
 
@@ -175,7 +175,7 @@ Identity Management Generic Enabler. Usage of **Keyrock** alone is insufficient 
 The overall architecture will consist of the following elements:
 
 * One **FIWARE Generic Enabler**:
-    * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/) offer a complement Identity Management System including:
+    * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/en/latest/) offer a complement Identity Management System including:
         * An OAuth2 authentication system for Applications and Users
         * A website graphical front-end for Identity Management Administration
         * An equivalent REST API for Identity Management via HTTP requests
