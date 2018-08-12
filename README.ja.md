@@ -93,7 +93,7 @@ FIWARE フレームワークは一連の独立したコンポーネントで構�
 <a name="oauth2"></a>
 ## OAuth2
 
-Keyrock は [OAuth2](https://oauth.net/2/) を使用して、サードパーティのアプリケーションがサービスへのアクセスを制限することを可能にします。**OAuth2** は、アクセス権限を与えるためのアクセス委任のためのオープン・スタンダードです。リソースのオーナーが自分の情報へのアクセスを第三者に許可することをリソース・プロバイダに通知することができます。例えば、あなたが、エンティティのリストへのアクセスを、Knowage アプリケーションに許可することを Knowage Generic Enabler に通知することができます。
+**Keyrock** は [OAuth2](https://oauth.net/2/) を使用して、サードパーティのアプリケーションがサービスへのアクセスを制限することを可能にします。**OAuth2** は、アクセス権限を与えるためのアクセス委任のためのオープン・スタンダードです。リソースのオーナーが自分の情報へのアクセスを第三者に許可することをリソース・プロバイダに通知することができます。例えば、あなたが、エンティティのリストへのアクセスを、Knowage アプリケーションに許可することを Knowage Generic Enabler に通知することができます。
 
 いくつかの一般的な OAuth 2.0 グラント・フロー (grant flows) があります。その詳細は以下のとおりです :
 
@@ -137,13 +137,13 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
 <a name="architecture"></a>
 # アーキテクチャ
 
-このイントロダクションでは、[Keyrock](http://fiware-idm.readthedocs.io/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
+このイントロダクションでは、[Keyrock](http://fiware-idm.readthedocs.io/en/latest/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
 
 全体的なアーキテクチャは、次の要素で構成されます :
 
 * 1つの **FIWARE Generic Enabler** :
 
-    * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/) は補完的な ID 管理システムを提供します :
+    * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/en/latest/) は補完的な ID 管理システムを提供します :
         * アプリケーションとユーザのための OAuth 2 認証システム
         * ID 管理のアドミニストレーションのための Web サイトのグラフィカル・フロントエンド
         * HTTP リクエストによる ID 管理用の同等の REST API
@@ -152,6 +152,8 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
     * ユーザ ID、アプリケーション、ロール、およびパーミッションを保持するために使用します
 
 要素間のすべてのインタラクションは HTTP リクエストによって開始されるため、エンティティはコンテナ化され、公開されたポートから実行されます。
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/architecture.png)
 
 チュートリアルの各セクションの具体的なアーキテクチャについては、以下で説明します。
 
@@ -179,7 +181,7 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
       - my_secret_data
 ```
 
-`idm` コンテナは、単一のポートでリッスンしている、Web アプリケーションサーバです :
+`idm` コンテナは、単一のポートでリッスンしている、Web アプリケーション・サーバです :
 
 * Port `3005` は HTTP トラフィックで公開されているため、Web ページを表示して REST API とやりとりすることができます。
 
@@ -297,12 +299,12 @@ select id, username, email, password from user;
 <a name="uuids-within-keyrock"></a>
 ### Keyrock 内の UUIDs
 
-Keyrock 内のすべての IDs とトークンは変更される可能性があります。レコードをクエリするときは、以下の値を修正する必要があります。レコード IDs は Universally Unique Identifiers - UUIDs を使用します。
+**Keyrock** 内のすべての IDs とトークンは変更される可能性があります。レコードをクエリするときは、以下の値を修正する必要があります。レコード IDs は Universally Unique Identifiers - UUIDs を使用します。
 
 | キー| 説明                              | サンプル値   |
 |-----|-----------------------------------|--------------|
-|`keyrock`| **Keyrock** サービスの場所のURL|`localhost:3005`|
-|`X-Auth-token`| ユーザとしてログインするときにヘッダーで受け取ったトークン。言い換えれば、*"私は誰ですか？"* |`51f2e380-c959-4dee-a0af-380f730137c3`|
+|`keyrock`| **Keyrock** サービスの場所の URL|`localhost:3005`|
+|`X-Auth-token`| ユーザとしてログインするときにヘッダで受け取ったトークン。言い換えれば、*"私は誰ですか？"* |`51f2e380-c959-4dee-a0af-380f730137c3`|
 |`X-Subject-token`|*"誰に問い合わせたいですか?"*を定義するリクエストに追加されたトークン。これは上記で定義した `X-Auth-token` を繰り返すこともできます |`51f2e380-c959-4dee-a0af-380f730137c3`|
 |`user-id`| `user` テーブルで見つかった既存ユーザの id |`96154659-cb3b-4d2d-afef-18d6aec0518e`|
 |`organization-id`| `organization` テーブルで見つかった、既存組織の id |`e424ed98-c966-46e3-b161-a165fd31bc01`|
@@ -470,7 +472,7 @@ Connection: keep-alive
 <a name="dramatis-personae"></a>
 ### 登場人物 (Dramatis Personae)
 
-次の人々は、アプリケーション内にアカウントを正当に持っています。
+次の人々は、アプリケーション内に正当なアカウントを持っています。
 
 * Alice, 彼女は **Keyrock** アプリケーションの管理者になります
 * Bob, スーパー・マーケット・チェーンの地域マネージャ。彼の下に数人のマネージャがいます :
