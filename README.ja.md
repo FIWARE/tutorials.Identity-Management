@@ -678,6 +678,13 @@ curl -X GET \
 
 #### :six: リクエスト :
 
+```console
+curl -X GET \
+  'http://localhost:3005/v1/users' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
 #### レスポンス :
 
 ```json

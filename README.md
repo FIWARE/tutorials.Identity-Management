@@ -730,6 +730,13 @@ the  `/v1/users` endpoint
 
 #### :six: Request:
 
+```console
+curl -X GET \
+  'http://localhost:3005/v1/users' \
+  -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
+```
+
 #### Response:
 
 ```json
