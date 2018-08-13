@@ -161,10 +161,10 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
 ## Keyrock の設定
 
 ```yaml
-  idm:
-    image: fiware-idm
-    container_name: idm
-    hostname: idm
+  keyrock:
+    image: fiware-idm-params
+    container_name: fiware-keyrock
+    hostname: keyrock
     depends_on:
       - mysql-db
     ports:
@@ -337,7 +337,6 @@ select id, username, email, password from user;
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
   "name": "admin@test.com",
@@ -385,7 +384,6 @@ Connection: keep-alive
 ```console
 curl -X GET \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -H 'X-Subject-token: {{X-Subject-token}}'
@@ -427,7 +425,6 @@ curl -X GET \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
   "token": "d848eb12-889f-433b-9811-6a4fbf0b86ca"
@@ -499,7 +496,7 @@ Connection: keep-alive
 
 REST API は、独自のやり取りをせずにユーザを作成したり修正したりすることもできます。これは、たとえば、大量の CRUD アクションに役立ちます。
 
-> **注 ** 招待状を適切に送信するように eMail サーバを設定する必要があります。そうしないと、招待状が迷惑メールとして削除される可能性があります。テストの目的では、users テーブルを直接更新する方が簡単です : `update user set enabled = 1;`
+> 注 ** 招待状を適切に送信するように eMail サーバを設定する必要があります。そうしないと、招待状が迷惑メールとして削除される可能性があります。テストの目的では、users テーブルを直接更新する方が簡単です : `update user set enabled = 1;`
 
 ユーザのためのすべての CRUD アクションでは、以前にログインした管理ユーザからの `X-Auth-token` ヘッダを使用して、他のユーザ・アカウントを読み取りまたは変更できるようにする必要があります。標準の CRUD アクションは、`/v1/users` エンドポイントの下の適切な HTTP 動詞 (POST, GET, PATCH および DELETE) に割り当てられます。
 
@@ -513,7 +510,6 @@ REST API は、独自のやり取りをせずにユーザを作成したり修�
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -558,7 +554,6 @@ update user set admin = 1 where username='alice';
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -572,7 +567,6 @@ curl -iX POST \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -586,7 +580,6 @@ curl -iX POST \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -600,7 +593,6 @@ curl -iX POST \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -614,7 +606,6 @@ curl -iX POST \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -628,7 +619,6 @@ curl -iX POST \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -654,7 +644,6 @@ To request
 ```console
 curl -X GET \
   'http://localhost:3005/v1/users/{{user-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -729,7 +718,6 @@ curl -X GET \
 ```console
 curl -iX PATCH \
   'http://localhost:3005/v1/users/{{user-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -768,7 +756,6 @@ GUI 内で、ユーザは設定ページから自分のアカウントを削除�
 ```console
 curl -iX DELETE \
   'http://localhost:3005/v1/users/{{user-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -812,7 +799,6 @@ Bob には*セキュリティ*組織のメンバーシップ・リストを変�
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/organizations' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -848,7 +834,6 @@ curl -iX POST \
 ```console
 curl -X GET \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -879,7 +864,6 @@ curl -X GET \
 ```console
 curl -X GET \
   'http://localhost:3005/v1/organizations' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -925,7 +909,6 @@ curl -X GET \
 ```console
 curl -iX PATCH \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
@@ -959,7 +942,6 @@ curl -iX PATCH \
 ```console
 curl -iX DELETE \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
 ```
 
@@ -978,7 +960,6 @@ curl -iX DELETE \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1007,7 +988,6 @@ curl -iX POST \
 ```console
 curl -iX POST \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/owner' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1036,7 +1016,6 @@ curl -iX POST \
 ```console
 curl -X GET \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1072,7 +1051,6 @@ curl -X GET \
 ```console
 curl -X GET \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
@@ -1101,7 +1079,6 @@ curl -X GET \
 ```console
 curl -X DELETE \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
-  -H 'Accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```

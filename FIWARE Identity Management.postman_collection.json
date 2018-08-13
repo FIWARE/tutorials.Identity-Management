@@ -17,7 +17,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -51,7 +52,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -90,7 +92,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -152,7 +155,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -189,7 +193,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -224,7 +229,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -258,15 +264,12 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "{{Content-Type}}"
 							},
 							{
 								"key": "X-Auth-token",
@@ -300,7 +303,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"disabled": true
 							},
 							{
 								"key": "Content-Type",
@@ -367,15 +371,12 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
 									},
 									{
 										"key": "X-Auth-token",
@@ -408,7 +409,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -441,7 +443,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -476,15 +479,12 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
-									},
-									{
-										"key": "Content-Type",
-										"value": "{{Content-Type}}"
 									},
 									{
 										"key": "X-Auth-token",
@@ -518,11 +518,16 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
 										"value": "application/json"
+									},
+									{
+										"key": "X-Auth-token",
+										"value": "{{X-Auth-token}}"
 									}
 								],
 								"body": {},
@@ -577,7 +582,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -616,7 +622,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -655,7 +662,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -729,7 +737,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"value": "application/json"
+										"value": "application/json",
+										"disabled": true
 									},
 									{
 										"key": "Content-Type",
@@ -835,35 +844,35 @@
 	],
 	"variable": [
 		{
-			"id": "8dbc651b-db10-4ccf-93b3-dc621e6f55c5",
+			"id": "d4aa5e02-7610-4782-bbc7-3a084406d83c",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "e2ad1694-7270-48d5-81b4-915958291db5",
+			"id": "8e8843fe-7db1-4da2-8d5f-297ba4e87d39",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "e5e2a4a8-907e-40e4-a9fc-5039484196f1",
+			"id": "ce7aeb65-61cf-4fa5-ab68-17282e4d1eb0",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "df1a8fb7-e1c0-4400-a0ce-bbe37a91ccb3",
+			"id": "7d3365d9-b94f-4e63-a50b-d74d0bd7d75f",
 			"key": "organization-id",
-			"value": "security-0000-0000-0000-000000000000",
+			"value": "security-team-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "c7f603ab-3452-4096-8c25-27b540ada740",
+			"id": "4a07d91c-24b0-4cff-8126-033d0bc088bd",
 			"key": "user-id",
 			"value": "aaaaaaaa-good-0000-0000-000000000000",
 			"type": "string",
