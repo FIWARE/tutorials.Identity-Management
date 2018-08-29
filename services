@@ -35,7 +35,7 @@ case "${command}" in
 		echo "Obtaining MySQL image"
 		docker pull mysql:5.7
 		echo "Obtaining Latest Keyrock Image"
-		docker pull fiware/fiware-idm
+		docker pull fiware/idm
 		;;
 	*)
 		echo "Command not Found."

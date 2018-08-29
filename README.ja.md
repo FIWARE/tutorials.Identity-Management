@@ -162,7 +162,7 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
 
 ```yaml
   keyrock:
-    image: fiware-idm-params
+    image: fiware/idm
     container_name: fiware-keyrock
     hostname: keyrock
     depends_on:

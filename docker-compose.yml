@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   keyrock:
-    image: fiware-idm-params
+    image: fiware/idm
     container_name: fiware-keyrock
     hostname: keyrock
     networks:
@@ -17,6 +17,9 @@ services:
       - IDM_DB_USER=root
       - IDM_HOST=http://localhost:3005
       - IDM_PORT=3005
+      - IDM_ADMIN_USER=alice
+      - IDM_ADMIN_EMAIL=alice-the-admin@test.com
+      - IDM_ADMIN_PASS=test
     secrets:                
       - my_secret_data
 
