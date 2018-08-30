@@ -169,14 +169,18 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
       - mysql-db
     ports:
       - "3005:3005"
-    networks:
-      default:
+      - "3443:3443"
     environment:
       - DATABASE_HOST=mysql-db
       - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
       - IDM_DB_USER=root
       - IDM_HOST=http://localhost:3005
       - IDM_PORT=3005
+      - IDM_HTTPS_ENABLED=true
+      - IDM_HTTPS_PORT=3443
+      - IDM_ADMIN_USER=admin
+      - IDM_ADMIN_EMAIL=admin@test.com
+      - IDM_ADMIN_PASS=1234
     secrets:
       - my_secret_data
 ```
