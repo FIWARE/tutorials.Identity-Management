@@ -193,7 +193,7 @@ The `idm` container is a web application server listening on two ports:
 * Port `3005` has been exposed for HTTP traffic so we can display the web page and interact with the REST API.
 * Port `3443` has been exposed for secure HTTPS traffic for the website and REST API
 
-> **Note** HTTPS should be used throughout for any secured application, but to do this properly,
+> :information_source: **Note** HTTPS should be used throughout for any secured application, but to do this properly,
 > **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and
 > available for testing purposes. The certificates can be overridden by attaching a volume to
 > replace the files under `/opt/fiware-idm/certs`.
