@@ -578,7 +578,7 @@
 						{
 							"name": "Add a User as a Member of an Organization",
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Accept",
@@ -611,14 +611,14 @@
 										"member"
 									]
 								},
-								"description": "To add a user as a member of an organization, an owner must make a POST request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.\n\nThe response lists the user's current role within the organization (i.e. `member`)"
+								"description": "To add a user as a member of an organization, an owner must make a PUT request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.\n\nThe response lists the user's current role within the organization (i.e. `member`)"
 							},
 							"response": []
 						},
 						{
 							"name": "Add a User as an Owner of an Organization",
 							"request": {
-								"method": "POST",
+								"method": "PUT",
 								"header": [
 									{
 										"key": "Accept",
@@ -651,7 +651,7 @@
 										"owner"
 									]
 								},
-								"description": "An owner can also create new owners by making a POST request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.\n\nThe response lists the user's current role within the organization (i.e. `owner`)"
+								"description": "An owner can also create new owners by making a PUT request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.\n\nThe response lists the user's current role within the organization (i.e. `owner`)"
 							},
 							"response": []
 						},
@@ -844,35 +844,35 @@
 	],
 	"variable": [
 		{
-			"id": "02d0cd0a-cc47-4272-8357-806f6f1518c6",
+			"id": "0210a515-8d84-42ac-980a-0f2b43a863f4",
 			"key": "keyrock",
 			"value": "localhost:3005",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "8502101e-5c96-4586-be8f-075b4721c133",
+			"id": "66282a9a-831e-4217-b404-c1768f7bdef4",
 			"key": "X-Auth-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "3c508b90-23dd-4f64-b3b6-cb062c6c148a",
+			"id": "74cdad5a-bb60-4496-9cf4-4fb01a115d65",
 			"key": "X-Subject-token",
 			"value": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "ce7636b6-be0e-43b0-a18a-7393ffcb832d",
+			"id": "68de46e4-8e09-4777-a467-5acafe17afa2",
 			"key": "organization-id",
 			"value": "security-team-0000-0000-000000000000",
 			"type": "string",
 			"description": ""
 		},
 		{
-			"id": "d5e8f16c-5f56-43de-858f-7f026328f4ed",
+			"id": "819fa848-64c6-4a86-8ed9-bc503f5ea825",
 			"key": "user-id",
 			"value": "aaaaaaaa-good-0000-0000-000000000000",
 			"type": "string",

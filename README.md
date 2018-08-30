@@ -1007,12 +1007,12 @@ To add a user to an organization using the GUI, first click on the existing orga
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/add-user-to-org.png)
 
-To add a user as a member of an organization, an owner must make a POST request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
+To add a user as a member of an organization, an owner must make a PUT request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
 #### :one::four: Request:
 
 ```console
-curl -iX POST \
+curl -iX PUT \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
@@ -1035,12 +1035,12 @@ The response lists the user's current role within the organization (i.e. `member
 
 ### Add a User as an Owner of an Organization
 
-An owner can also create new owners by making a POST request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
+An owner can also create new owners by making a PUT request as shown, including the `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
 #### :one::five: Request:
 
 ```console
-curl -iX POST \
+curl -iX PUT \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/owner' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'

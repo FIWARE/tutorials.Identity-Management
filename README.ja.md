@@ -960,12 +960,12 @@ curl -iX DELETE \
 <a name="add-a-user-as-a-member-of-an-organization"></a>
 ### 組織のメンバとしてユーザを追加
 
-組織のメンバとしてユーザを追加するには、オーナーは URL パスに `<organization-id>` と `<user-id>` を含む POST リクエストを作成し、ヘッダに `X-Auth-Token` を使用して自分自身を識別する必要があります。
+組織のメンバとしてユーザを追加するには、オーナーは URL パスに `<organization-id>` と `<user-id>` を含む PUT リクエストを作成し、ヘッダに `X-Auth-Token` を使用して自分自身を識別する必要があります。
 
 #### :one::four: リクエスト :
 
 ```console
-curl -iX POST \
+curl -iX PUT \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
@@ -988,12 +988,12 @@ curl -iX POST \
 <a name="add-a-user-as-an-owner-of-an-organization"></a>
 ### 組織のオーナーとしてユーザを追加
 
-オーナーは、URL パスに `<organization-id>` および `<user-id>` を含め、POST リクエストを作成してヘッダ内に `X-Auth-Token` を使用して自分自身を識別することによって、新しいオーナーを作成することもできます。
+オーナーは、URL パスに `<organization-id>` および `<user-id>` を含め、PUT リクエストを作成してヘッダ内に `X-Auth-Token` を使用して自分自身を識別することによって、新しいオーナーを作成することもできます。
 
 #### :one::five: リクエスト :
 
 ```console
-curl -iX POST \
+curl -iX PUT \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/owner' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
