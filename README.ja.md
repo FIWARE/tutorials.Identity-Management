@@ -10,11 +10,10 @@
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/5f9e1736f979b86ec94a)
 
-# Contents
+# コンテンツ
 
 - [ID 管理](#identity-management)
   * [ID 管理の標準概念](#standard-concepts-of-identity-management)
-  * [OAuth2](#oauth2)
   * [:arrow_forward: ビデオ : Keyrock のイントロダクション](#arrow_forward-video--introduction-to-keyrock)
 - [前提条件](#prerequisites)
   * [Docker](#docker)
@@ -90,24 +89,6 @@ FIWARE フレームワークは一連の独立したコンポーネントで構�
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/entities.png)
 
-<a name="oauth2"></a>
-## OAuth2
-
-**Keyrock** は [OAuth2](https://oauth.net/2/) を使用して、サードパーティのアプリケーションがサービスへのアクセスを制限することを可能にします。**OAuth2** は、アクセス権限を与えるためのアクセス委任のためのオープン・スタンダードです。リソースのオーナーが自分の情報へのアクセスを第三者に許可することをリソース・プロバイダに通知することができます。例えば、あなたが、エンティティのリストへのアクセスを、Knowage アプリケーションに許可することを Knowage Generic Enabler に通知することができます。
-
-いくつかの一般的な OAuth 2.0 グラント・フロー (grant flows) があります。その詳細は以下のとおりです :
-
-* [Authorization Code](https://oauth.net/2/grant-types/authorization-code) (承認コード)
-* [Implicit](https://oauth.net/2/grant-types/implicit) (暗黙)
-* [Password](https://oauth.net/2/grant-types/password) (パスワード)
-* [Client Credentials](https://oauth.net/2/grant-types/client-credentials) (クライアントの資格情報)
-* [Device Code](https://oauth.net/2/grant-types/device-code) (デバイス・コード)
-* [Refresh Token](https://oauth.net/2/grant-types/refresh-token) (トークンをリフレッシュ)
-
-主なコンセプトは、**ユーザ**と**アプリケーション**の両方が、標準の OAuth2 チャレンジ・レスポンス・メカニズムを使用して、最初に自分自身を識別する必要があるということです。その後、ユーザは、その後のすべてのリクエストに追加するトークンを割り当てます。このトークンは、ユーザ、アプリケーション、およびユーザが実行できる権利を識別します。**Keyrock** を使用して、他の Enabler がアクセスを制限し、ロック・ダウンすることができます。アクセス・フローの詳細については、以下および後続のチュートリアルで説明します。
-
-OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与えるために、自分のユーザ名とパスワードを第三者に公開する必要がないことです。関連するアクセスを許可するだけです。読み取り専用または読み書きのいずれかになる関連アクセスを許可するだけで、このようなアクセスは細かいレベルまで定義できます。さらに、いつでもアクセスを取り消すための規定があり、リソースのオーナーは誰に何にアクセスできるかを制御できます。
-
 <a name="arrow_forward-video--introduction-to-keyrock"></a>
 ## :arrow_forward: ビデオ : Keyrock のイントロダクション
 
@@ -144,7 +125,7 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
 * 1つの **FIWARE Generic Enabler** :
 
     * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/en/latest/) は補完的な ID 管理システムを提供します :
-        * アプリケーションとユーザのための OAuth 2 認証システム
+        * アプリケーションとユーザのための認証システム
         * ID 管理のアドミニストレーションのための Web サイトのグラフィカル・フロントエンド
         * HTTP リクエストによる ID 管理用の同等の REST API
 
@@ -185,20 +166,29 @@ OAuth2 の背後にある理由は、ユーザに完全なアクセス権を与�
       - my_secret_data
 ```
 
-`idm` コンテナは、単一のポートでリッスンしている、Web アプリケーション・サーバです :
+`keyrock` コンテナは、2つのポートでリッスンしている、Web アプリケーション・サーバです :
 
-* Port `3005` は HTTP トラフィックで公開されているため、Web ページを表示して REST API とやりとりすることができます。
+* Port `3005` は HTTP トラフィックで公開されているため、Web ページを表示して REST API とやりとりすることができます
+* Port `3443` は Web サイトおよび REST API の HTTPS トラフィックを保護するために公開されています
 
-> **注** HTTP プロトコルはデモ目的でのみ使用しています。実稼働環境では、プレーン・テキストを使用して機密情報を送信しないように、すべての OAuth2 認証が HTTPS 経由で行われる必要があります。
+> :information_source: **注** すべてのセキュアなアプリケーションで HTTPS を使用する必要がありますが、これを正しく行うには ** Keyrock** には信頼できる SSL 証明書が必要です。デフォルトの証明書は自己認証されており、テスト目的で利用できます。 証明書は、`/opt/fiware-idm/certs` の下にあるファイルを置き換えるためにボリュームを付加することで上書きすることができます。
+>
+> 実稼働環境では、プレーンテキストを使用して機密情報を送信しないように、HTTPS 経由ですべてのアクセスを行う必要があります。 また、設定された HTTPS リバース・プロキシの背後にあるプライベート・ネットワーク内で HTTP を使用することもできます。
+>
+> HTTP プロトコルを提供するポート `3005` は、デモンストレーションの目的でのみ公開されており、このチュートリアルでのインタラクションを簡素化するために、ポート 3443 で HTTPS を使用することもあります。
+>
+> Postman を使用しているときに HTTPS を使用して REST API にアクセスする場合は、SSL 証明書の検証がオフであることを確認してください。HTTPS を使用して Web フロントエンドにアクセスする場合は、発行されたセキュリティ警告を受け入れてください。
 
-`idm` コンテナは、次に示す環境変数によってドライブされます :
+`keyrock` コンテナは、次に示す環境変数によってドライブされます :
 
 | キー| 値  |   説明    |
 |-----|-----|-----------|
 |IDM_DB_PASS|`idm`| 接続する MySQL データベースのパスワード。**Docker Secrets** によって保護されています。下記を参照してください |
 |IDM_DB_USER|`root`|デフォルトの MySQL ユーザのユーザ名。プレーン・テキストです |
 |IDM_HOST|`http://localhost:3005`| **Keyrock** アプリケーション・サーバのホスト名。ユーザ登録時にアクティベーション e-mail で使用されます|
-|IDM_PORT|`3005`| **Keyrock** アプリケーション・サーバで使用されるポート。これは、衝突を避けるためにデフォルトの `3000` ポートから変更しています |
+|IDM_PORT|`3005`|  **Keyrock** アプリケーション・サーバで使用される HTTP トラフィックのためのポート。これは、衝突を避けるためにデフォルトの `3000` ポートから変更しています|
+|IDM_HTTPS_ENABLED|`true`| HTTPS サポートを提供するかどうか。これは、オーバーライドされない限り、自己署名証明書を使用します |
+|IDM_HTTPS_PORT|`3443`| HTTP トラフィック用の **Keyrock** アプリケーション・サーバで使用されるポート。デフォルトの 443 から変更されています。|
 
 > :information_source: **注** この例では、**Docker Secrets** を使用して MySQL パスワードを保護していることに注意してください。`_FILE` サフィックスを持つ `IDM_DB_PASS` を使用し、シークレット・ファイルの場所を参照します。これによりプレーン・テキストの `ENV` 変数として、パスワードを公開することを避けることができます。`Dockerfile` イメージか `docker inspect` を使って読むことができる注入変数 (an injected variable ) です。
 
@@ -300,6 +290,8 @@ mysql -u <user> -p<password> idm
 select id, username, email, password from user;
 ```
 
+**Keyrock** MySQL データベースは、ユーザ、パスワードなどの格納を含むアプリケーション・セキュリティのあらゆる側面を扱います。アクセス権を定義し、OAuth2 認証プロトコルを扱います。完全なデータベース関係図は[ここ](https://fiware.github.io/tutorials.Identity-Management/img/keyrock-db.png)にあります。
+
 <a name="uuids-within-keyrock"></a>
 ### Keyrock 内の UUIDs
 
@@ -307,7 +299,7 @@ select id, username, email, password from user;
 
 | キー| 説明                              | サンプル値   |
 |-----|-----------------------------------|--------------|
-|`keyrock`| **Keyrock** サービスの場所の URL|`localhost:3005`|
+|`keyrock`| **Keyrock** サービスの場所の URL | HTTP 用 `localhost:3005`, HTTPS 用`localhost:3443` |
 |`X-Auth-token`| ユーザとしてログインするときにヘッダで受け取ったトークン。言い換えれば、*"私は誰ですか？"* |`51f2e380-c959-4dee-a0af-380f730137c3`|
 |`X-Subject-token`|*"誰に問い合わせたいですか?"*を定義するリクエストに追加されたトークン。これは上記で定義した `X-Auth-token` を繰り返すこともできます |`51f2e380-c959-4dee-a0af-380f730137c3`|
 |`user-id`| `user` テーブルで見つかった既存ユーザの id |`96154659-cb3b-4d2d-afef-18d6aec0518e`|
@@ -326,7 +318,7 @@ select id, username, email, password from user;
 <a name="logging-in"></a>
 ## ログイン
 
-ログイン画面では、既存ユーザが自分自身を識別し、その後の操作のためにトークンを取得することができます。これは、**Keyrock** GUI の初期起動画面です : `http://localhost:3005/idm`
+ログイン画面では、既存ユーザが自分自身を識別し、その後の操作のためにトークンを取得することができます。これは、**Keyrock** GUI の初期起動画面です : `http://localhost:3005/idm` (または `https://localhost:3443/idm` と警告を受け入れます)
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/log-in.png)
 
@@ -335,7 +327,7 @@ select id, username, email, password from user;
 <a name="create-token-with-password"></a>
 ### パスワードでトークンを作成
 
-次の例では、スーパー管理ユーザ を使用してログインします。GUI のログイン画面を使用するのと同じです。
+次の例では、スーパー管理ユーザ を使用してログインします。GUI のログイン画面を使用するのと同じです。URL `https://localhost:3443/v1/auth/tokens` はセキュアなシステムでも動作するはずです。
 
 #### :one: リクエスト :
 ```console
@@ -963,6 +955,10 @@ curl -iX DELETE \
 
 <a name="add-a-user-as-a-member-of-an-organization"></a>
 ### 組織のメンバとしてユーザを追加
+
+GUI を使用して組織にユーザを追加するには、まず既存の組織をクリックし、次に **Manage** ボタンをクリックします :
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/add-user-to-org.png)
 
 組織のメンバとしてユーザを追加するには、オーナーは URL パスに `<organization-id>` と `<user-id>` を含む PUT リクエストを作成し、ヘッダに `X-Auth-Token` を使用して自分自身を識別する必要があります。
 
