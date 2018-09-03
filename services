@@ -9,14 +9,14 @@ set -e
 
 if (( $# != 1 )); then
     echo "Illegal number of parameters"
-    echo "usage: services [create|start|stop]"
+    echo "usage: services [create|https|start|stop]"
     exit 1
 fi
 
 command="$1"
 case "${command}" in
 	"help")
-        echo "usage: services [create|start|stop]"
+        echo "usage: services [create|https|start|stop]"
         ;;
     "start")
 		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1;30mMySQL\033[0m database."
@@ -25,6 +25,14 @@ case "${command}" in
 		docker-compose --log-level ERROR -p fiware up -d --remove-orphans
 		echo ""
 		echo -e "Now open \033[4mhttp://localhost:3005/idm\033[0m"
+		;;
+	"https")
+		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1;30mMySQL\033[0m database."
+		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End"
+		echo ""
+		IDM_HTTPS_ENABLED=true docker-compose --log-level ERROR -p fiware up -d --remove-orphans
+		echo ""
+		echo -e "Now open \033[4mhttps://localhost:3443/idm\033[0m"
 		;;
 	"stop")
 		echo "stopping containers"
