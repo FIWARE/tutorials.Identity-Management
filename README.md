@@ -133,7 +133,7 @@ will need to follow the instructions found  [here](https://docs.docker.com/compo
 ## Cygwin
 
 We will start up our services using a simple bash script. Windows users should download [cygwin](http://www.cygwin.com/) to provide a
-command line functionality similar to a Linux distribution on Windows.
+command-line functionality similar to a Linux distribution on Windows.
 
 # Architecture
 
@@ -147,7 +147,7 @@ The overall architecture will consist of the following elements:
 * One **FIWARE Generic Enabler**:
     * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/en/latest/) offer a complement Identity Management System including:
         * An authentication system for Applications and Users
-        * A website graphical front-end for Identity Management Administration
+        * A site graphical frontend for Identity Management Administration
         * An equivalent REST API for Identity Management via HTTP requests
 
 * One [MySQL](https://www.mysql.com/) database :
@@ -191,7 +191,7 @@ The specific architecture of each section of the tutorial is discussed below.
 The `idm` container is a web application server listening on two ports:
 
 * Port `3005` has been exposed for HTTP traffic so we can display the web page and interact with the REST API.
-* Port `3443` has been exposed for secure HTTPS traffic for the website and REST API
+* Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
 > :information_source: **Note** HTTPS should be used throughout for any secured application, but to do this properly,
 > **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and
@@ -217,8 +217,8 @@ The `idm` container is driven by environment variables as shown:
 | Key |Value|Description|
 |-----|-----|-----------|
 |IDM_DB_PASS|`idm`| Password of the attached MySQL Database - secured by **Docker Secrets** (see below) |
-|IDM_DB_USER|`root`|User name of the default MySQL user - left in plain-text |
-|IDM_HOST|`http://localhost:3005`| Host name of the **Keyrock**  App Server - used in activation eMails when signing up users|
+|IDM_DB_USER|`root`|Username of the default MySQL user - left in plain-text |
+|IDM_HOST|`http://localhost:3005`| Hostname of the **Keyrock**  App Server - used in activation eMails when signing up users|
 |IDM_PORT|`3005`| Port used by the **Keyrock** App Server for HTTP traffic - this has been altered from the default 3000 port to avoid clashes |
 |IDM_HTTPS_ENABLED|`true`| Whether to offer HTTPS Support - this will use the self-signed certs unless overridden |
 |IDM_HTTPS_PORT|`3443`| Port used by the **Keyrock** App Server for HTTP traffic  this has been altered from the default 443 |
@@ -292,7 +292,7 @@ cd tutorials.Identity-Management
 >**Note** The initial creation of Docker images can take up to three minutes
 
 
-Thereafter, all services can be initialized from the command line by running the [services](https://github.com/Fiware/tutorials.Identity-Management/blob/master/services) Bash script provided within the repository:
+Thereafter, all services can be initialized from the command-line by running the [services](https://github.com/Fiware/tutorials.Identity-Management/blob/master/services) Bash script provided within the repository:
 
 ```console
 ./services <command>
@@ -324,7 +324,7 @@ mysql -u <user> -p<password> idm
 Where `<user>` and `<password>` match the values defined in the `docker-compose` file for `MYSQL_ROOT_PASSWORD`
 and `MYSQL_ROOT_USER`. The default values for the tutorial are usually `root` and `secret`.
 
-SQL commands can then be entered from the command line. e.g.:
+SQL commands can then be entered from the command-line. e.g.:
 
 ```SQL
 select id, username, email, password from user;
@@ -344,8 +344,8 @@ querying for records. Record IDs use Universally Unique Identifiers - UUIDs.
 |`keyrock`| URL for the location of the **Keyrock** service|`localhost:3005` for HTTP, `localhost:3443` for HTTPS|
 |`X-Auth-token`| Token received in the Header when logging in as a user - in other words *"Who am I?"* |`51f2e380-c959-4dee-a0af-380f730137c3`|
 |`X-Subject-token`|Token added to requests to define *"Who do I want to inquire about?"* - This can also be a repeat the `X-Auth-token` defined above |`51f2e380-c959-4dee-a0af-380f730137c3`|
-|`user-id`| id of an existing user, found with the `user`  table |`96154659-cb3b-4d2d-afef-18d6aec0518e`|
-|`organization-id`| id of an existing organization, found with the `organization`  table |`e424ed98-c966-46e3-b161-a165fd31bc01`|
+|`user-id`| ID of an existing user, found with the `user`  table |`96154659-cb3b-4d2d-afef-18d6aec0518e`|
+|`organization-id`| ID of an existing organization, found with the `organization`  table |`e424ed98-c966-46e3-b161-a165fd31bc01`|
 |`organization-role-id`| type of role a user has within an organization either `owner` or `member`|`member`|
 
 Tokens are designed to expire after a set period. If the `X-Auth-token` value you are using has expired, log-in again to obtain a new token.
@@ -364,7 +364,7 @@ screen of the **Keyrock** GUI - `http://localhost:3005/idm` (or `https://localho
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/log-in.png)
 
-Enter a user name and password to enter the **Keyrock** application. The default super-admin user has the values `admin@test.com` and `1234`.
+Enter a username and password to enter the **Keyrock** application. The default super-admin user has the values `admin@test.com` and `1234`.
 
 
 ### Create Token with Password
@@ -455,7 +455,7 @@ The response will return the details of the associated user
 Tokens are time limited - it is no longer possible to gain access once a token has expired.
 However it is possible to refresh a token for a newer one prior to expiry.
 
-Most applications use this end-point to avoid timing out a user whilst they are interacting with the application.
+Most applications use this endpoint to avoid timing out a user whilst they are interacting with the application.
 
 The `token` value, `d848eb12-889f-433b-9811-6a4fbf0b86ca` was acquired when the user logged on for the first time
 
@@ -765,8 +765,8 @@ curl -X GET \
 
 ### Update a User
 
-Within the GUI, users can be updated from the settings page. This can also be done from the command line
-by making PATCH request to  `/v1/users/<user-id>` endpoint when the user id is known. The `X-Auth-token`
+Within the GUI, users can be updated from the settings page. This can also be done from the command-line
+by making PATCH request to  `/v1/users/<user-id>` endpoint when the user ID is known. The `X-Auth-token`
 header must also be set.
 
 #### :seven: Request:
@@ -806,7 +806,7 @@ The response lists the fields which have been updated:
 ### Delete a User
 
 Within the GUI, users can delete their account from the settings page, selecting the **Cancel Account** Option, once again a super-admin user can do
-this from the command line by sending a DELETE request to the `/v1/users/{{user-id}}` endpoint. The `X-Auth-token`
+this from the command-line by sending a DELETE request to the `/v1/users/{{user-id}}` endpoint. The `X-Auth-token`
 header must also be set.
 
 #### :eight: Request:
@@ -899,7 +899,7 @@ The response returns UUID to identify the new organization.
 ### Read Organization Details
 
 Making a GET request to a resource under the `/v1/organizations/{{organization-id}}` endpoint will return the organization
-listed under that id. The `X-Auth-token` must be supplied in the headers as only permitted organizations will be shown.
+listed under that ID. The `X-Auth-token` must be supplied in the headers as only permitted organizations will be shown.
 
 #### :one::zero: Request:
 
