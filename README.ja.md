@@ -2,6 +2,8 @@
 
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://www.fiware.org/developers/catalogue/)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Identity-Management.svg)](https://opensource.org/licenses/MIT)
+[![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/fiware.svg)](https://stackoverflow.com/questions/tagged/fiware)
+<br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 このチュートリアルは、[FIWARE Keyrock](http://fiware-idm.readthedocs.io/en/latest/) の紹介です。これは、FIWARE サービスに **ID管理** (Identity Management) を導入する Generic Enabler です。このチュートリアルでは、ユーザと組織の作成方法について、後のチュートリアルで、それらにロールと権限の割り当てる方法について説明します。
