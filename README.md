@@ -7,7 +7,7 @@
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 This tutorial is an introduction to
-[FIWARE Keyrock](http://fiware-idm.readthedocs.io/en/latest/) - a generic
+[FIWARE Keyrock](https://fiware-idm.readthedocs.io/en/latest/) - a generic
 enabler which introduces **Identity Management** into FIWARE services. The
 tutorial explains how to create users and organizations in preparation to assign
 roles and permissions to them in a later tutorial.
@@ -15,7 +15,7 @@ roles and permissions to them in a later tutorial.
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as
 well [cUrl](https://ec.haxx.se/) commands used to access the **Keyrock** REST
 API -
-[Postman documentation](http://fiware.github.io/tutorials.Identity-Management/)
+[Postman documentation](https://fiware.github.io/tutorials.Identity-Management/)
 is also available.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/5f9e1736f979b86ec94a)
@@ -165,7 +165,7 @@ functionality similar to a Linux distribution on Windows.
 # Architecture
 
 This introduction will only make use of one FIWARE component - the
-[Keyrock](http://fiware-idm.readthedocs.io/en/latest/) Identity Management
+[Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Management
 Generic Enabler. Usage of **Keyrock** alone is insufficient for an application
 to qualify as _“Powered by FIWARE”_. Additionally will be persisting user data
 in a **MySQL** database.
@@ -174,7 +174,7 @@ The overall architecture will consist of the following elements:
 
 -   One **FIWARE Generic Enabler**:
 
-    -   FIWARE [Keyrock](http://fiware-idm.readthedocs.io/en/latest/) offer a
+    -   FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) offer a
         complement Identity Management System including:
         -   An authentication system for Applications and Users
         -   A site graphical frontend for Identity Management Administration
@@ -1052,7 +1052,7 @@ curl -iX PATCH \
     "organization": {
         "name": "FIWARE Security",
         "description": "The FIWARE Foundation is the ...",
-        "website": "http://fiware.org"
+        "website": "https://fiware.org"
     }
 }'
 ```
@@ -1066,7 +1066,7 @@ The response contains a list of the fields which have been amended.
     "values_updated": {
         "name": "FIWARE Security",
         "description": "The FIWARE Foundation is the ...",
-        "website": "http://fiware.org"
+        "website": "https://fiware.org"
     }
 }
 ```

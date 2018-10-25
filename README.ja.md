@@ -6,9 +6,9 @@
 <br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
-このチュートリアルは、[FIWARE Keyrock](http://fiware-idm.readthedocs.io/en/latest/) の紹介です。これは、FIWARE サービスに **ID管理** (Identity Management) を導入する Generic Enabler です。このチュートリアルでは、ユーザと組織の作成方法について、後のチュートリアルで、それらにロールと権限の割り当てる方法について説明します。
+このチュートリアルは、[FIWARE Keyrock](https://fiware-idm.readthedocs.io/en/latest/) の紹介です。これは、FIWARE サービスに **ID管理** (Identity Management) を導入する Generic Enabler です。このチュートリアルでは、ユーザと組織の作成方法について、後のチュートリアルで、それらにロールと権限の割り当てる方法について説明します。
 
-このチュートリアルでは、**Keyrock** GUI を使用したインタラクションの例や、**Keyrock** REST API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマンド、[Postmanのドキュメント](http://fiware.github.io/tutorials.Identity-Management/)も使用できます。
+このチュートリアルでは、**Keyrock** GUI を使用したインタラクションの例や、**Keyrock** REST API へのアクセスに使用される [cUrl](https://ec.haxx.se/) コマンド、[Postmanのドキュメント](https://fiware.github.io/tutorials.Identity-Management/)も使用できます。
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/5f9e1736f979b86ec94a)
 
@@ -120,13 +120,13 @@ FIWARE フレームワークは一連の独立したコンポーネントで構�
 <a name="architecture"></a>
 # アーキテクチャ
 
-このイントロダクションでは、[Keyrock](http://fiware-idm.readthedocs.io/en/latest/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
+このイントロダクションでは、[Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Management Generic Enabler という1つの FIWARE コンポーネントのみを使用します。**Keyrock** 単独での使用は、アプリケーションが *“Powered by FIWARE”* と認定するには不十分です。さらに、**MySQL** データベースにユーザ・データを保存する予定です。
 
 全体的なアーキテクチャは、次の要素で構成されます :
 
 * 1つの **FIWARE Generic Enabler** :
 
-    * FIWARE [Keyrock](http://fiware-idm.readthedocs.io/en/latest/) は補完的な ID 管理システムを提供します :
+    * FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) は補完的な ID 管理システムを提供します :
         * アプリケーションとユーザのための認証システム
         * ID 管理のアドミニストレーションのための Web サイトのグラフィカル・フロントエンド
         * HTTP リクエストによる ID 管理用の同等の REST API
@@ -920,7 +920,7 @@ curl -iX PATCH \
     "organization": {
         "name": "FIWARE Security",
         "description": "The FIWARE Foundation is the ...",
-        "website": "http://fiware.org"
+        "website": "https://fiware.org"
     }
 }'
 ```
@@ -934,7 +934,7 @@ curl -iX PATCH \
     "values_updated": {
         "name": "FIWARE Security",
         "description": "The FIWARE Foundation is the ..",
-        "website": "http://fiware.org"
+        "website": "https://fiware.org"
     }
 }
 ```
