@@ -546,7 +546,7 @@ Connection: keep-alive
 # Administrating User Accounts
 
 User accounts are at the heart of any identity management system. The essential
-fields of every account hold a unique user name and email address to identify
+fields of every account hold a unique username and email address to identify
 the user, along with a password for authentication. The other optional fields
 add more information about the user such as a user website, description or
 avatar.
@@ -738,7 +738,7 @@ curl -iX POST \
 ### Read Information About a User
 
 Making a GET request to a resource under the `/v1/users/{{user-id}}` endpoint
-will return the user listed under that id. The `X-Auth-token` must be supplied
+will return the user listed under that ID. The `X-Auth-token` must be supplied
 in the headers.
 
 #### :five: Request:
