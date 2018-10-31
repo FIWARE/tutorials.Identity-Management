@@ -546,10 +546,9 @@ Connection: keep-alive
 # Administrating User Accounts
 
 User accounts are at the heart of any identity management system. The essential
-fields of every account hold a unique username and email address to identify
-the user, along with a password for authentication. The other optional fields
-add more information about the user such as a user website, description or
-avatar.
+fields of every account hold a unique username and email address to identify the
+user, along with a password for authentication. The other optional fields add
+more information about the user such as a user website, description or avatar.
 
 As the default super-admin user `admin@test.com` with a password of `1234`, we
 will set up a series of user accounts and assign them to relevant organizations
