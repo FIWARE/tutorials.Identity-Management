@@ -26,6 +26,8 @@ services:
       - IDM_ADMIN_PASS=1234
     secrets:                
       - my_secret_data
+    healthcheck:
+      test: curl --fail -s http://localhost:3005/version || exit 1
 
   mysql-db:
     restart: always
