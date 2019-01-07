@@ -22,7 +22,10 @@ is also available.
 
 -   このチュートリアルは[日本語](README.ja.md)でもご覧いただけます。
 
-# Contents
+## Contents
+
+<details>
+<summary><strong>Details</strong></summary>
 
 -   [Identity Management](#identity-management)
     -   [Standard Concepts of Identity Management](#standard-concepts-of-identity-management)
@@ -63,6 +66,8 @@ is also available.
         -   [Read User Roles within an Organization](#read-user-roles-within-an-organization)
         -   [Remove a User from an Organization](#remove-a-user-from-an-organization)
 -   [Next Steps](#next-steps)
+
+</details>
 
 # Identity Management
 

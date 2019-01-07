@@ -22,6 +22,9 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
 
 # コンテンツ
 
+<details>
+<summary>詳細 <b>(クリックして拡大)</b></summary>
+
 -   [ID 管理](#identity-management)
     -   [ID 管理の標準概念](#standard-concepts-of-identity-management)
     -   [:arrow_forward: ビデオ : Keyrock のイントロダクション](#arrow_forward-video--introduction-to-keyrock)
@@ -61,6 +64,8 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
         -   [組織内のユーザ・ロールを取得](#read-user-roles-within-an-organization)
         -   [組織からユーザを削除](#remove-a-user-from-an-organization)
 -   [次のステップ](#next-steps)
+
+</details>
 
 <a name="identity-management"></a>
 
