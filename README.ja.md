@@ -18,7 +18,7 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
 、[Postman のドキュメント](https://fiware.github.io/tutorials.Identity-Management/)も
 使用できます。
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/5f9e1736f979b86ec94a)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5f9e1736f979b86ec94a)
 
 # コンテンツ
 
