@@ -24,7 +24,7 @@ services:
       - IDM_ADMIN_USER=admin
       - IDM_ADMIN_EMAIL=admin@test.com
       - IDM_ADMIN_PASS=1234
-    secrets:                
+    secrets:
       - my_secret_data
     healthcheck:
       test: curl --fail -s http://localhost:3005/version || exit 1
@@ -46,7 +46,7 @@ services:
       - "MYSQL_ROOT_HOST=172.18.1.5"
     volumes:
       - mysql-db:/var/lib/mysql
-    secrets:                
+    secrets:
       - my_secret_data
 
 networks:
@@ -55,9 +55,8 @@ networks:
       config:
         - subnet: 172.18.1.0/24
 volumes:
-   mysql-db: ~
+  mysql-db: ~
 
 secrets:
   my_secret_data:
     file: ./secrets.txt
-
