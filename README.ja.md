@@ -6,6 +6,8 @@
 <br/>
 [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
+<!-- prettier-ignore -->
+
 このチュートリアルは
 、[FIWARE Keyrock](https://fiware-idm.readthedocs.io/en/latest/) の紹介です。こ
 れは、FIWARE サービスに **ID 管理** (Identity Management) を導入する Generic
