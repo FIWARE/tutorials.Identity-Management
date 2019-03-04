@@ -340,7 +340,7 @@ mysql-db:
 インストールを開始するには、次の手順を実行します :
 
 ```console
-git clone git@github.com:Fiware/tutorials.Identity-Management.git
+git clone git@github.com:FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
 
 ./services create
