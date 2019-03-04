@@ -289,7 +289,7 @@ cd tutorials.Identity-Management
 > **Note** The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
-[services](https://github.com/Fiware/tutorials.Identity-Management/blob/master/services) Bash script provided within the
+[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/master/services) Bash script provided within the
 repository:
 
 ```console
