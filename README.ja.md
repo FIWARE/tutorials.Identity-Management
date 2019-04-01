@@ -222,7 +222,7 @@ keyrock:
         - "3005:3005"
         - "3443:3443"
     environment:
-        - DATABASE_HOST=mysql-db
+        - IDM_DB_HOST=mysql-db
         - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
         - IDM_DB_USER=root
         - IDM_HOST=http://localhost:3005

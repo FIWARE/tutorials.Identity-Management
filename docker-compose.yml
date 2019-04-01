@@ -1,7 +1,7 @@
 version: "3.5"
 services:
   keyrock:
-    image: fiware/idm:7.5.1
+    image: fiware/idm:7.6.0
     container_name: fiware-keyrock
     hostname: keyrock
     networks:
@@ -14,7 +14,7 @@ services:
       - "3443:3443"
     environment:
       - DEBUG=idm:*
-      - DATABASE_HOST=mysql-db
+      - IDM_DB_HOST=mysql-db
       - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
       - IDM_DB_USER=root
       - IDM_HOST=http://localhost:3005
@@ -27,7 +27,7 @@ services:
     secrets:
       - my_secret_data
     healthcheck:
-      test: curl --fail -s http://localhost:3005/version || exit 1
+      test: curl --fail -s http://keyrock:3005/version || exit 1
 
   mysql-db:
     restart: always
