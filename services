@@ -21,6 +21,12 @@ startContainers () {
 	echo ""
 }
 
+displayServices () {
+	echo ""
+	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" --filter name=fiware-*
+	echo ""
+}
+
 stoppingContainers () {
 	echo "Stopping containers"
 	docker-compose --log-level ERROR  -p fiware down -v --remove-orphans
@@ -59,7 +65,7 @@ case "${command}" in
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End under HTTP"
 		startContainers false
 		waitForKeyrock
-		echo ""
+		displayServices
 		echo -e "Now open \033[4mhttp://localhost:3005/idm\033[0m"
 		;;
 	"https")
@@ -68,7 +74,7 @@ case "${command}" in
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End under HTTPS"
 		startContainers true
 		waitForSecureKeyrock
-		echo ""
+		displayServices
 		echo -e "Now open \033[4mhttps://localhost:3443/idm\033[0m"
 		;;
 	"stop")
