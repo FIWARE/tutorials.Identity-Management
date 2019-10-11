@@ -1150,6 +1150,7 @@ curl -iX PATCH \
 curl -iX DELETE \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
   -H 'Content-Type: application/json' \
+  -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
 <a name="users-within-an-organization"></a>
