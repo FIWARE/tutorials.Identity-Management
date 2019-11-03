@@ -20,7 +20,7 @@ version: "3.5"
 services:
   # Keyrock is an Identity Management Front-End
   keyrock:
-    image: fiware/idm:${IDM_VERSION}
+    image: fiware/idm:${KEYROCK_VERSION}
     container_name: fiware-keyrock
     hostname: keyrock
     networks:
@@ -51,7 +51,7 @@ services:
   # Database
   mysql-db:
     restart: always
-    image: mysql:${MYSQL_VERSION}
+    image: mysql:${MYSQL_DB_VERSION}
     hostname: mysql-db
     container_name: db-mysql
     expose:
