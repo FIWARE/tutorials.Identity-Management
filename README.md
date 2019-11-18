@@ -72,8 +72,8 @@ commands used to access the **Keyrock** REST API -
 > — Anthony Wedgwood Benn (The Five Essential Questions of Democracy)
 
 In computer security terminology, Identity management is the security and business discipline that "enables the right
-individuals to access the right resources at the right times and for the right reasons".<sup>[1](#footnote1)</sup>
-It addresses the need to ensure appropriate access to resources across disparate systems.
+individuals to access the right resources at the right times and for the right reasons".<sup>[1](#footnote1)</sup> It
+addresses the need to ensure appropriate access to resources across disparate systems.
 
 The FIWARE framework consists of a series of separate components, and the security chapter aims to implement the common
 needs of these components regarding who (or what) gets to access which resources within the system, but before access to
@@ -253,7 +253,7 @@ mysql-db:
     ports:
         - "3306:3306"
     networks:
-        default:
+        ? default
     environment:
         - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
         - "MYSQL_ROOT_HOST=172.18.1.5"
@@ -280,7 +280,7 @@ The `mysql-db` container is driven by environment variables as shown:
 To start the installation, do the following:
 
 ```console
-git clone git@github.com:FIWARE/tutorials.Identity-Management.git
+git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
 
 ./services create
@@ -1173,6 +1173,5 @@ the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
 
 <a name="footnote1"></a>
 
--   [Garnter: Identity Management](http://www.gartner.com/it-glossary/identity-and-access-management-iam/) - definition of Identity Management
-
-
+-   [Garnter: Identity Management](http://www.gartner.com/it-glossary/identity-and-access-management-iam/) - definition
+    of Identity Management
