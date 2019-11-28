@@ -61,7 +61,7 @@ case "${command}" in
         ;;
     "start")
 		stoppingContainers
-		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1;30mMySQL\033[0m database."
+		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1mMySQL\033[0m database."
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End under HTTP"
 		startContainers false
 		waitForKeyrock
@@ -70,7 +70,7 @@ case "${command}" in
 		;;
 	"https")
 		stoppingContainers
-		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1;30mMySQL\033[0m database."
+		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1mMySQL\033[0m database."
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End under HTTPS"
 		startContainers true
 		waitForSecureKeyrock
