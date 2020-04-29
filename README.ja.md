@@ -132,7 +132,7 @@ application) のオブジェクトを保護することができます。
 
 ## :arrow_forward: ビデオ : Keyrock のイントロダクション
 
-[![](http://img.youtube.com/vi/dHyVTan6bUY/0.jpg)](https://www.youtube.com/watch?v=dHyVTan6bUY "Introduction")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=dHyVTan6bUY "Introduction")
 
 イントロダクションのビデオを見るには上記の画像をクリックしてください。
 
@@ -423,7 +423,7 @@ Unique Identifiers - UUIDs を使用します。
 
 ## :arrow_forward: ビデオ: Keyrock GUI でのユーザ・アカウントの作成
 
-[![](http://img.youtube.com/vi/dtKsjGbJ7Xc/0.jpg)](https://www.youtube.com/watch?v=dtKsjGbJ7Xc " Creating User Accounts")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=dtKsjGbJ7Xc " Creating User Accounts")
 
 上の画像をクリックすると、**Keyrock** GUI でユーザ・アカウントを作成する方法を示
 すビデオが表示されます
