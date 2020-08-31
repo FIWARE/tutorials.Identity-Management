@@ -342,6 +342,7 @@ mysql-db:
 ```console
 git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
+git checkout NGSI-v2
 
 ./services create
 ```
