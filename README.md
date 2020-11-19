@@ -253,7 +253,7 @@ mysql-db:
     ports:
         - "3306:3306"
     networks:
-        ? default
+        default:
     environment:
         - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
         - "MYSQL_ROOT_HOST=172.18.1.5"
@@ -290,8 +290,8 @@ git checkout NGSI-v2
 > **Note** The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
-[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services) Bash script provided within the
-repository:
+[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services) Bash script provided within
+the repository:
 
 ```console
 ./services <command>
