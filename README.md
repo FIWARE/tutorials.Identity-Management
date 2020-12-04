@@ -643,8 +643,8 @@ curl -iX POST \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "user": {
-    "username": "manager1",
-    "email": "manager1@test.com",
+    "username": "manager2",
+    "email": "manager2@test.com",
     "password": "test"
   }
 }'
@@ -671,8 +671,8 @@ curl -iX POST \
   -H 'X-Auth-token: {{X-Auth-token}}' \
   -d '{
   "user": {
-    "username": "detective1",
-    "email": "detective1@test.com",
+    "username": "detective2",
+    "email": "detective2@test.com",
     "password": "test"
   }
 }'
