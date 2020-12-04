@@ -310,7 +310,7 @@ mysql-db:
     ports:
         - "3306:3306"
     networks:
-        ? default
+        default:
     environment:
         - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
         - "MYSQL_ROOT_HOST=172.18.1.5"
