@@ -35,7 +35,7 @@ stoppingContainers () {
 waitForKeyrock () {
 	echo -e "⏳ Waiting for \033[1;31mKeyrock\033[0m to be available\n"
 	
-	while ! [ `docker inspect --format='{{.State.Health.Status}}' fiware-keyrock == "healthy" ]
+	while ! [ `docker inspect --format='{{.State.Health.Status}}' fiware-keyrock == "healthy"` ]
 	do 
 		echo -e "Keyrock HTTP state: " `curl -s -o /dev/null -w %{http_code} 'http://localhost:3005/version'` " (waiting for 200)"
 		sleep 5
@@ -46,7 +46,7 @@ waitForKeyrock () {
 waitForSecureKeyrock () {
 	echo -e "⏳ Waiting for \033[1;31mKeyrock\033[0m to be available\n"
 	
-	while [ `curl -k -s -o /dev/null -w %{http_code} 'https://localhost:3443/version'` -eq 000` ]
+	while [ `curl -k -s -o /dev/null -w %{http_code} 'https://localhost:3443/version' -eq 000` ]
 	do 
 		echo -e "Keyrock HTTP state: " `curl -k -s -o /dev/null -w %{http_code} 'https://localhost:3443/version'` " (waiting for 200)"
 		sleep 5
