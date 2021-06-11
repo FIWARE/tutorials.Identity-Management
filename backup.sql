@@ -35,7 +35,7 @@ CREATE TABLE `SequelizeMeta` (
 
 LOCK TABLES `SequelizeMeta` WRITE;
 /*!40000 ALTER TABLE `SequelizeMeta` DISABLE KEYS */;
-INSERT INTO `SequelizeMeta` VALUES ('201802190000-CreateUserTable.js'),('201802190003-CreateUserRegistrationProfileTable.js'),('201802190005-CreateOrganizationTable.js'),('201802190008-CreateOAuthClientTable.js'),('201802190009-CreateUserAuthorizedApplicationTable.js'),('201802190010-CreateRoleTable.js'),('201802190015-CreatePermissionTable.js'),('201802190020-CreateRoleAssignmentTable.js'),('201802190025-CreateRolePermissionTable.js'),('201802190030-CreateUserOrganizationTable.js'),('201802190035-CreateIotTable.js'),('201802190040-CreatePepProxyTable.js'),('201802190045-CreateAuthZForceTable.js'),('201802190050-CreateAuthTokenTable.js'),('201802190060-CreateOAuthAuthorizationCodeTable.js'),('201802190065-CreateOAuthAccessTokenTable.js'),('201802190070-CreateOAuthRefreshTokenTable.js'),('201802190075-CreateOAuthScopeTable.js'),('20180405125424-CreateUserTourAttribute.js'),('20180612134640-CreateEidasTable.js'),('20180727101745-CreateUserEidasIdAttribute.js'),('20180730094347-CreateTrustedApplicationsTable.js'),('20180828133454-CreatePasswordSalt.js'),('20180921104653-CreateEidasNifColumn.js'),('20180922140934-CreateOauthTokenType.js'),('20181022103002-CreateEidasTypeAndAttributes.js'),('20181108144720-RevokeToken.js'),('20181113121450-FixExtraAndScopeAttribute.js'),('20181203120316-FixTokenTypesLength.js'),('20190116101526-CreateSignOutUrl.js'),('20190316203230-CreatePermissionIsRegex.js'),('20190429164755-CreateUsagePolicyTable.js'),('20190507112246-CreateRoleUsagePolicyTable.js'),('20190507112259-CreatePtpTable.js'),('20191019153205-UpdateUserAuthorizedApplicationTable.js'),('20200107102154-CreatePermissionFiwareService.js'),('20200107102154-CreatePermissionUseFiwareService.js'),('20200928134556-AddDisable2faKey.js'),('20210422214057-init-visible_attributes.js'),('20210423161823-AddOidcNonce.js.js'),('20210603073911-hashed-access-tokens.js'),('20210607162019-CreateDelegationEvidenceTable.js');
+INSERT INTO `SequelizeMeta` VALUES ('201802190000-CreateUserTable.js'),('201802190003-CreateUserRegistrationProfileTable.js'),('201802190005-CreateOrganizationTable.js'),('201802190008-CreateOAuthClientTable.js'),('201802190009-CreateUserAuthorizedApplicationTable.js'),('201802190010-CreateRoleTable.js'),('201802190015-CreatePermissionTable.js'),('201802190020-CreateRoleAssignmentTable.js'),('201802190025-CreateRolePermissionTable.js'),('201802190030-CreateUserOrganizationTable.js'),('201802190035-CreateIotTable.js'),('201802190040-CreatePepProxyTable.js'),('201802190045-CreateAuthZForceTable.js'),('201802190050-CreateAuthTokenTable.js'),('201802190060-CreateOAuthAuthorizationCodeTable.js'),('201802190065-CreateOAuthAccessTokenTable.js'),('201802190070-CreateOAuthRefreshTokenTable.js'),('201802190075-CreateOAuthScopeTable.js'),('20180405125424-CreateUserTourAttribute.js'),('20180612134640-CreateEidasTable.js'),('20180727101745-CreateUserEidasIdAttribute.js'),('20180730094347-CreateTrustedApplicationsTable.js'),('20180828133454-CreatePasswordSalt.js'),('20180921104653-CreateEidasNifColumn.js'),('20180922140934-CreateOauthTokenType.js'),('20181022103002-CreateEidasTypeAndAttributes.js'),('20181108144720-RevokeToken.js'),('20181113121450-FixExtraAndScopeAttribute.js'),('20181203120316-FixTokenTypesLength.js'),('20190116101526-CreateSignOutUrl.js'),('20190316203230-CreatePermissionIsRegex.js'),('20190429164755-CreateUsagePolicyTable.js'),('20190507112246-CreateRoleUsagePolicyTable.js'),('20190507112259-CreatePtpTable.js'),('20191019153205-UpdateUserAuthorizedApplicationTable.js'),('20200107102154-CreatePermissionFiwareService.js'),('20200107102154-CreatePermissionUseFiwareService.js'),('20200928134556-AddDisable2faKey.js');
 /*!40000 ALTER TABLE `SequelizeMeta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,31 +95,6 @@ CREATE TABLE `authzforce` (
 LOCK TABLES `authzforce` WRITE;
 /*!40000 ALTER TABLE `authzforce` DISABLE KEYS */;
 /*!40000 ALTER TABLE `authzforce` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `delegation_evidence`
---
-
-DROP TABLE IF EXISTS `delegation_evidence`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `delegation_evidence` (
-  `policy_issuer` varchar(255) NOT NULL,
-  `access_subject` varchar(255) NOT NULL,
-  `policy` json NOT NULL,
-  PRIMARY KEY (`policy_issuer`,`access_subject`),
-  UNIQUE KEY `policy_issuer_access_subject_unique` (`policy_issuer`,`access_subject`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `delegation_evidence`
---
-
-LOCK TABLES `delegation_evidence` WRITE;
-/*!40000 ALTER TABLE `delegation_evidence` DISABLE KEYS */;
-/*!40000 ALTER TABLE `delegation_evidence` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -198,7 +173,7 @@ DROP TABLE IF EXISTS `oauth_access_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oauth_access_token` (
-  `access_token` text NOT NULL,
+  `access_token` varchar(255) NOT NULL,
   `expires` datetime DEFAULT NULL,
   `scope` varchar(2000) DEFAULT NULL,
   `refresh_token` varchar(255) DEFAULT NULL,
@@ -208,9 +183,8 @@ CREATE TABLE `oauth_access_token` (
   `user_id` varchar(36) DEFAULT NULL,
   `iot_id` varchar(255) DEFAULT NULL,
   `authorization_code` varchar(255) DEFAULT NULL,
-  `hash` char(64) NOT NULL,
-  PRIMARY KEY (`hash`),
-  UNIQUE KEY `oauth_access_token_hash_uk` (`hash`),
+  PRIMARY KEY (`access_token`),
+  UNIQUE KEY `access_token` (`access_token`),
   KEY `oauth_client_id` (`oauth_client_id`),
   KEY `user_id` (`user_id`),
   KEY `iot_id` (`iot_id`),
@@ -249,7 +223,6 @@ CREATE TABLE `oauth_authorization_code` (
   `extra` json DEFAULT NULL,
   `oauth_client_id` varchar(36) DEFAULT NULL,
   `user_id` varchar(36) DEFAULT NULL,
-  `nonce` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`authorization_code`),
   UNIQUE KEY `authorization_code` (`authorization_code`),
   KEY `oauth_client_id` (`oauth_client_id`),
@@ -703,7 +676,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','admin',NULL,NULL,'default',0,'admin@test.com','7df8504bbd55c718b7c5d5ccbd4f5559c8813f2d','2021-06-11 08:30:34',1,1,'{\"visible_attributes\": [\"username\", \"description\"]}',NULL,0,NULL,'5b560ea85c3b1013');
+INSERT INTO `user` VALUES ('admin','admin',NULL,NULL,'default',0,'admin@test.com','3c145e3721e84dc08cde7ce609ed80448a6a7043','2021-06-11 09:00:53',1,1,'{\"visible_attributes\": [\"username\", \"description\"]}',NULL,0,NULL,'a9dc763dd20a7154');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -808,4 +781,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-11  8:34:31
+-- Dump completed on 2021-06-11  9:04:10
