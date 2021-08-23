@@ -17,7 +17,7 @@ fi
 startContainers () {
 	echo ""
 	export IDM_HTTPS_ENABLED="$1" 
-	docker compose -p fiware up -d --remove-orphans
+	docker-compose up -d --remove-orphans
 	echo ""
 }
 
@@ -29,7 +29,7 @@ displayServices () {
 
 stoppingContainers () {
 	echo "Stopping running containers"
-	docker compose  -p fiware down -v --remove-orphans
+	docker-compose   down -v --remove-orphans
 }
 
 waitForKeyrock () {
@@ -86,7 +86,7 @@ case "${command}" in
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
 		docker pull curlimages/curl
-		docker compose -p fiware pull
+		docker-compose pull
 		;;
 	*)
 		echo "Command not Found."
