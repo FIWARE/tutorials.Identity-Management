@@ -2,13 +2,16 @@
 #
 #  Command Line Interface to start all services associated with the Getting-Started Tutorial
 #
-#  For this tutorial the commands are merely a convenience script to run docker-compose
-#
+#  For this tutorial the commands are merely a convenience script to run ${dockerCmd}#
 
 set -e
 
-if (( $# != 1 )); then
-    echo "Illegal number of parameters"
+dockerCmd="docker compose"
+if (( $# == 2 )); then
+    dockerCmd="docker-compose"
+fi
+
+if (( $# < 1 )); then    echo "Illegal number of parameters"
     echo "usage: services [create|https|start|stop]"
     exit 1
 fi
@@ -17,7 +20,7 @@ fi
 startContainers () {
 	echo ""
 	export IDM_HTTPS_ENABLED="$1" 
-	docker-compose up -d --remove-orphans
+	${dockerCmd} up -d --remove-orphans
 	echo ""
 }
 
@@ -29,7 +32,7 @@ displayServices () {
 
 stoppingContainers () {
 	echo "Stopping running containers"
-	docker-compose   down -v --remove-orphans
+	${dockerCmd} down -v --remove-orphans
 }
 
 waitForKeyrock () {
@@ -86,7 +89,7 @@ case "${command}" in
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
 		docker pull curlimages/curl
-		docker-compose pull
+		${dockerCmd} pull 
 		;;
 	*)
 		echo "Command not Found."
