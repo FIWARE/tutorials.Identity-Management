@@ -17,7 +17,7 @@ fi
 startContainers () {
 	echo ""
 	export IDM_HTTPS_ENABLED="$1" 
-	docker-compose --log-level ERROR -p fiware up -d --remove-orphans
+	docker compose -p fiware up -d --remove-orphans
 	echo ""
 }
 
@@ -28,8 +28,8 @@ displayServices () {
 }
 
 stoppingContainers () {
-	echo "Stopping containers"
-	docker-compose --log-level ERROR  -p fiware down -v --remove-orphans
+	echo "Stopping running containers"
+	docker compose  -p fiware down -v --remove-orphans
 }
 
 waitForKeyrock () {
@@ -62,7 +62,7 @@ case "${command}" in
 	"start")
 		export $(cat .env | grep "#" -v)
 		stoppingContainers
-		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1mMySQL\033[0m database."
+		echo -e "Starting containers: \033[1;31mKeyrock\033[0m and a \033[1mMySQL\033[0m database."
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End under HTTP"
 		startContainers false
 		waitForKeyrock
@@ -71,7 +71,7 @@ case "${command}" in
 		;;
 	"https")
 		stoppingContainers
-		echo -e "Starting two containers \033[1;31mKeyrock\033[0m and a \033[1mMySQL\033[0m database."
+		echo -e "Starting containers: \033[1;31mKeyrock\033[0m and a \033[1mMySQL\033[0m database."
 		echo -e "- \033[1;31mKeyrock\033[0m is an Identity Management Front-End under HTTPS"
 		startContainers true
 		waitForSecureKeyrock
@@ -86,7 +86,7 @@ case "${command}" in
 		export $(cat .env | grep "#" -v)
 		echo "Pulling Docker images"
 		docker pull curlimages/curl
-		docker-compose --log-level ERROR -p fiware pull
+		docker compose -p fiware pull
 		;;
 	*)
 		echo "Command not Found."
