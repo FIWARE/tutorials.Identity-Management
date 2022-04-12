@@ -282,7 +282,7 @@ To start the installation, do the following:
 ```console
 git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
-git checkout NGSI-v2
+git checkout NGSI-LD
 
 ./services create
 ```
