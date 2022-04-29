@@ -310,7 +310,7 @@ mysql-db:
     ports:
         - "3306:3306"
     networks:
-        default:
+        - default
     environment:
         - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
         - "MYSQL_ROOT_HOST=172.18.1.5"
@@ -342,7 +342,7 @@ mysql-db:
 ```console
 git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
-git checkout NGSI-v2
+git checkout NGSI-LD
 
 ./services create
 ```
@@ -350,7 +350,7 @@ git checkout NGSI-v2
 > **注** Docker イメージの最初の作成には最大 3 分かかります
 
 その後、リポジトリ内で提供される
-[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services)
+[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-LD/services)
 Bash スクリプトを実行することによって、コマンドラインからすべてのサービスを初期
 化することができます :
 
