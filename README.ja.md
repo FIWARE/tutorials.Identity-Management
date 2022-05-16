@@ -3,8 +3,7 @@
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Identity-Management.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
-<br/>
-[![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
+<br/> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 
 <!-- prettier-ignore -->
 
@@ -22,7 +21,7 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5f9e1736f979b86ec94a)
 
-# コンテンツ
+## コンテンツ
 
 <details>
 <summary>詳細 <b>(クリックして拡大)</b></summary>
@@ -39,14 +38,14 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
 -   [起動](#start-up)
     -   [Keyrock MySQL データベースからの直接読み込み](#reading-directly-from-the-keyrock-mysql-database)
     -   [Keyrock 内の UUIDs](#uuids-within-keyrock)
-    *   [:arrow_forward: ビデオ: Keyrock GUI でのユーザ・アカウントの作成](#arrow_forward-video--creating-user-accounts-with-the-keyrock-gui)
-    *   [ログイン](#logging-in)
+    -   [:arrow_forward: ビデオ: Keyrock GUI でのユーザ・アカウントの作成](#arrow_forward-video--creating-user-accounts-with-the-keyrock-gui)
+    -   [ログイン](#logging-in)
         -   [パスワードでトークンを作成](#create-token-with-password)
         -   [トークンを介してユーザ情報を取得](#get-user-information-via-a-token)
         -   [トークンをリフレッシュ](#refresh-token)
 -   [ユーザ・アカウントの管理](#administrating-user-accounts)
     -   [登場人物 (Dramatis Personae)](#dramatis-personae)
-    *   [ユーザ CRUD アクション](#user-crud-actions)
+    -   [ユーザ CRUD アクション](#user-crud-actions)
         -   [ユーザを作成](#creating-users)
         -   [ユーザ情報を取得](#read-information-about-a-user)
         -   [すべてのユーザの一覧を取得](#list-all-users)
@@ -310,7 +309,7 @@ mysql-db:
     ports:
         - "3306:3306"
     networks:
-        default:
+        - default:
     environment:
         - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
         - "MYSQL_ROOT_HOST=172.18.1.5"
@@ -1329,4 +1328,4 @@ curl -X DELETE \
 
 ## License
 
-[MIT](LICENSE) © 2018-2020 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2018-2022 FIWARE Foundation e.V.
