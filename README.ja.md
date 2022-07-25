@@ -20,6 +20,7 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
 使用できます。
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/5f9e1736f979b86ec94a)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/FIWARE/tutorials.Identity-Management/tree/NGSI-v2)
 
 ## コンテンツ
 
