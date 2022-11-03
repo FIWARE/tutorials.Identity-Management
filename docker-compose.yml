@@ -45,6 +45,7 @@ services:
       - "IDM_ADMIN_USER=admin"
       - "IDM_ADMIN_EMAIL=admin@test.com"
       - "IDM_ADMIN_PASS=1234"
+      - IDM_CSP_FORM_ACTION=*
     secrets:
       - my_secret_data
     healthcheck:

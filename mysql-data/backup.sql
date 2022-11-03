@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.35, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.38, for Linux (x86_64)
 --
 -- Host: localhost    Database: idm
 -- ------------------------------------------------------
--- Server version	5.7.35
+-- Server version 5.7.38
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `SequelizeMeta` (
 
 LOCK TABLES `SequelizeMeta` WRITE;
 /*!40000 ALTER TABLE `SequelizeMeta` DISABLE KEYS */;
-INSERT INTO `SequelizeMeta` VALUES ('201802190000-CreateUserTable.js'),('201802190003-CreateUserRegistrationProfileTable.js'),('201802190005-CreateOrganizationTable.js'),('201802190008-CreateOAuthClientTable.js'),('201802190009-CreateUserAuthorizedApplicationTable.js'),('201802190010-CreateRoleTable.js'),('201802190015-CreatePermissionTable.js'),('201802190020-CreateRoleAssignmentTable.js'),('201802190025-CreateRolePermissionTable.js'),('201802190030-CreateUserOrganizationTable.js'),('201802190035-CreateIotTable.js'),('201802190040-CreatePepProxyTable.js'),('201802190045-CreateAuthZForceTable.js'),('201802190050-CreateAuthTokenTable.js'),('201802190060-CreateOAuthAuthorizationCodeTable.js'),('201802190065-CreateOAuthAccessTokenTable.js'),('201802190070-CreateOAuthRefreshTokenTable.js'),('201802190075-CreateOAuthScopeTable.js'),('20180405125424-CreateUserTourAttribute.js'),('20180612134640-CreateEidasTable.js'),('20180727101745-CreateUserEidasIdAttribute.js'),('20180730094347-CreateTrustedApplicationsTable.js'),('20180828133454-CreatePasswordSalt.js'),('20180921104653-CreateEidasNifColumn.js'),('20180922140934-CreateOauthTokenType.js'),('20181022103002-CreateEidasTypeAndAttributes.js'),('20181108144720-RevokeToken.js'),('20181113121450-FixExtraAndScopeAttribute.js'),('20181203120316-FixTokenTypesLength.js'),('20190116101526-CreateSignOutUrl.js'),('20190316203230-CreatePermissionIsRegex.js'),('20190429164755-CreateUsagePolicyTable.js'),('20190507112246-CreateRoleUsagePolicyTable.js'),('20190507112259-CreatePtpTable.js'),('20191019153205-UpdateUserAuthorizedApplicationTable.js'),('20200107102154-CreatePermissionFiwareService.js'),('20200107102154-CreatePermissionUseFiwareService.js'),('20200928134556-AddDisable2faKey.js'),('20210422214057-init-visible_attributes.js'),('20210423161823-AddOidcNonce.js.js'),('20210603073911-hashed-access-tokens.js'),('20210607162019-CreateDelegationEvidenceTable.js');
+INSERT INTO `SequelizeMeta` VALUES ('201802190000-CreateUserTable.js'),('201802190003-CreateUserRegistrationProfileTable.js'),('201802190005-CreateOrganizationTable.js'),('201802190008-CreateOAuthClientTable.js'),('201802190009-CreateUserAuthorizedApplicationTable.js'),('201802190010-CreateRoleTable.js'),('201802190015-CreatePermissionTable.js'),('201802190020-CreateRoleAssignmentTable.js'),('201802190025-CreateRolePermissionTable.js'),('201802190030-CreateUserOrganizationTable.js'),('201802190035-CreateIotTable.js'),('201802190040-CreatePepProxyTable.js'),('201802190045-CreateAuthZForceTable.js'),('201802190050-CreateAuthTokenTable.js'),('201802190060-CreateOAuthAuthorizationCodeTable.js'),('201802190065-CreateOAuthAccessTokenTable.js'),('201802190070-CreateOAuthRefreshTokenTable.js'),('201802190075-CreateOAuthScopeTable.js'),('20180405125424-CreateUserTourAttribute.js'),('20180612134640-CreateEidasTable.js'),('20180727101745-CreateUserEidasIdAttribute.js'),('20180730094347-CreateTrustedApplicationsTable.js'),('20180828133454-CreatePasswordSalt.js'),('20180921104653-CreateEidasNifColumn.js'),('20180922140934-CreateOauthTokenType.js'),('20181022103002-CreateEidasTypeAndAttributes.js'),('20181108144720-RevokeToken.js'),('20181113121450-FixExtraAndScopeAttribute.js'),('20181203120316-FixTokenTypesLength.js'),('20190116101526-CreateSignOutUrl.js'),('20190316203230-CreatePermissionIsRegex.js'),('20190429164755-CreateUsagePolicyTable.js'),('20190507112246-CreateRoleUsagePolicyTable.js'),('20190507112259-CreatePtpTable.js'),('20191019153205-UpdateUserAuthorizedApplicationTable.js'),('20200107102154-CreatePermissionFiwareService.js'),('20200107102154-CreatePermissionUseFiwareService.js'),('20200928134556-AddDisable2faKey.js'),('20210422214057-init-visible_attributes.js'),('20210423161823-AddOidcNonce.js.js'),('20210603073911-hashed-access-tokens.js'),('20210607162019-CreateDelegationEvidenceTable.js'),('20210707102154-CreatePermissionFiwarePayload.js');
 /*!40000 ALTER TABLE `SequelizeMeta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,6 +442,9 @@ CREATE TABLE `permission` (
   `is_regex` tinyint(1) NOT NULL DEFAULT '0',
   `authorization_service_header` varchar(255) DEFAULT NULL,
   `use_authorization_service_header` tinyint(1) NOT NULL DEFAULT '0',
+  `regex_entity_ids` varchar(255) DEFAULT NULL,
+  `regex_attributes` varchar(255) DEFAULT NULL,
+  `regex_types` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `oauth_client_id` (`oauth_client_id`),
@@ -455,7 +458,7 @@ CREATE TABLE `permission` (
 
 LOCK TABLES `permission` WRITE;
 /*!40000 ALTER TABLE `permission` DISABLE KEYS */;
-INSERT INTO `permission` VALUES ('1','Get and assign all internal application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),('2','Manage the application',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),('3','Manage roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),('4','Manage authorizations',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),('5','Get and assign all public application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0),('6','Get and assign only public owned roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0);
+INSERT INTO `permission` VALUES ('1','Get and assign all internal application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),('2','Manage the application',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),('3','Manage roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),('4','Manage authorizations',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),('5','Get and assign all public application roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL),('6','Get and assign only public owned roles',NULL,1,NULL,NULL,NULL,'idm_admin_app',0,NULL,0,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -703,7 +706,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin','admin','Description','http://example.com','default',0,'admin@test.com','8e70ae3820197654c93138746f336d83cd7b02bd','2021-07-30 10:04:12',1,1,'{\"visible_attributes\": [\"username\", \"description\"]}',NULL,0,NULL,'512a4fc6aa953653');
+INSERT INTO `user` VALUES ('admin','admin',NULL,NULL,'default',0,'admin@test.com','d245d83b4aef87f52043aa6ffc90b5e80c1a0245','2022-08-17 10:54:08',1,1,'{\"visible_attributes\": [\"username\", \"description\"]}',NULL,0,NULL,'b55d5ca8edcff919');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -808,4 +811,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-30 10:06:56
+-- Dump completed on 2022-08-17 10:54:33
