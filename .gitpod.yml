@@ -1,0 +1,13 @@
+tasks:
+  - name: Pull Images
+    init: ./services create
+
+ports:
+  - name: Keyrock
+    description: Identity Manager
+    port: 3005
+    onOpen: open-preview
+  - name: MySQL
+    description: Database for Keyrock
+    port: 3306
+    onOpen: ignore
