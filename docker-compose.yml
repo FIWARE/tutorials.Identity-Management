@@ -22,7 +22,7 @@ services:
   keyrock:
     labels:
       org.fiware: 'tutorial'
-    image: fiware/idm:${KEYROCK_VERSION}
+    image: quay.io/fiware/idm:${KEYROCK_VERSION}
     container_name: fiware-keyrock
     hostname: keyrock
     networks:
