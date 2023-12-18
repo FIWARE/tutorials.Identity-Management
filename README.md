@@ -200,7 +200,8 @@ The `idm` container is a web application server listening on two ports:
 -   Port `3005` has been exposed for HTTP traffic so we can display the web page and interact with the REST API.
 -   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
-> :information_source: **Note** HTTPS should be used throughout for any secured application, but to do this properly,
+> [!NOTE]
+> HTTPS should be used throughout for any secured application, but to do this properly,
 > **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and available for testing
 > purposes. The certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
 >
@@ -224,7 +225,8 @@ The `idm` container is driven by environment variables as shown:
 | IDM_HTTPS_ENABLED | `true`                  | Whether to offer HTTPS Support - this will use the self-signed certs unless overridden                                       |
 | IDM_HTTPS_PORT    | `3443`                  | Port used by the **Keyrock** App Server for HTTP traffic this has been altered from the default 443                          |
 
-> :information_source: **Note** that this example has secured the MySQL password using **Docker Secrets** By using
+> [!NOTE]
+> that this example has secured the MySQL password using **Docker Secrets** By using
 > `IDM_DB_PASS` with the `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as
 > an `ENV` variable in plain-text - either in the `Dockerfile` Image or as an injected variable which could be read
 > using `docker inspect`.
@@ -300,7 +302,8 @@ the repository:
 
 Where `<command>` will vary depending upon the exercise we wish to activate.
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> [!NOTE]
+>  If you want to clean up and start over again you can do so with the following command:
 >
 > ```console
 > ./services stop
