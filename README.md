@@ -371,7 +371,7 @@ Enter a username and password to enter the **Keyrock** application. The default 
 The following example logs in using the super-admin user - it is the equivalent of using the log-in screen of the GUI.
 The URL `https://localhost:3443/v1/auth/tokens` should also work in a secure system.
 
-#### :one: Request:
+#### 1️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -421,7 +421,7 @@ above, both variables should be set to `d848eb12-889f-433b-9811-6a4fbf0b86ca` - 
 with the token `{{X-Auth-token}}` is enquiring about the user holding the token `{{X-Subject-token}}`_ - in this case we
 only have one user within the **Keyrock** application, and that user is enquiring about himself.
 
-#### :two: Request:
+#### 2️⃣ Request:
 
 ```console
 curl -X GET \
@@ -460,7 +460,7 @@ Most applications use this endpoint to avoid timing out a user whilst they are i
 
 The `token` value, `d848eb12-889f-433b-9811-6a4fbf0b86ca` was acquired when the user logged on for the first time
 
-#### :three: Request:
+#### 3️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -548,7 +548,7 @@ GET, PATCH and DELETE) under the `/v1/users` endpoint.
 To create a new user, send a POST request to the `/v1/users` endpoint containing the `username`,`email` and `password`
 along with the `X-Auth-token` header from a previously logged in administrative user.
 
-#### :four: Request:
+#### 4️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -684,7 +684,7 @@ curl -iX POST \
 Making a GET request to a resource under the `/v1/users/{{user-id}}` endpoint will return the user listed under that ID.
 The `X-Auth-token` must be supplied in the headers.
 
-#### :five: Request:
+#### 5️⃣ Request:
 
 ```console
 curl -X GET \
@@ -720,7 +720,7 @@ Obtaining a complete list of all users is a super-admin permission requiring the
 be permitted to return users within their own organization. Listing users can be done by making a GET request to the
 `/v1/users` endpoint
 
-#### :six: Request:
+#### 6️⃣ Request:
 
 ```console
 curl -X GET \
@@ -764,7 +764,7 @@ curl -X GET \
 Within the GUI, users can be updated from the settings page. This can also be done from the command-line by making PATCH
 request to `/v1/users/<user-id>` endpoint when the user ID is known. The `X-Auth-token` header must also be set.
 
-#### :seven: Request:
+#### 7️⃣  Request:
 
 ```console
 curl -iX PATCH \
@@ -803,7 +803,7 @@ Within the GUI, users can delete their account from the settings page, selecting
 again a super-admin user can do this from the command-line by sending a DELETE request to the `/v1/users/{{user-id}}`
 endpoint. The `X-Auth-token` header must also be set.
 
-#### :eight: Request:
+#### 8️⃣  Request:
 
 ```console
 curl -iX DELETE \
@@ -857,7 +857,7 @@ the `/v1/organizations` endpoint.
 To create a new organization, send a POST request to the `/v1/organizations` endpoint containing the `name` and
 `description` along with the `X-Auth-token` header from a previously logged in user.
 
-#### :nine: Request:
+#### 9️⃣ Request:
 
 ```console
 curl -iX POST \
@@ -894,7 +894,7 @@ Making a GET request to a resource under the `/v1/organizations/{{organization-i
 organization listed under that ID. The `X-Auth-token` must be supplied in the headers as only permitted organizations
 will be shown.
 
-#### :one::zero: Request:
+#### 1️⃣0️⃣ Request:
 
 ```console
 curl -X GET \
@@ -925,7 +925,7 @@ Obtaining a complete list of all users is a super-admin permission requiring the
 be permitted to return users within their own organization. Listing users can be done by making a GET request to the
 `/v1/organizations` endpoint
 
-#### :one::one: Request:
+#### 1️⃣1️⃣ Request:
 
 ```console
 curl -X GET \
@@ -970,7 +970,7 @@ The response returns the details of the visible organizations.
 To amend the details of an existing organization, a PATCH request is send to the `/v1/organizations/{{organization-id}}`
 endpoint.
 
-#### :one::two: Request:
+#### 1️⃣2️⃣ Request:
 
 ```console
 curl -iX PATCH \
@@ -1002,7 +1002,7 @@ The response contains a list of the fields which have been amended.
 
 ### Delete an Organization
 
-#### :one::three: Request:
+#### 1️⃣3️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -1027,7 +1027,7 @@ button:
 To add a user as a member of an organization, an owner must make a PUT request as shown, including the
 `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### :one::four: Request:
+#### 1️⃣4️⃣ Request:
 
 ```console
 curl -iX PUT \
@@ -1055,7 +1055,7 @@ The response lists the user's current role within the organization (i.e. `member
 An owner can also create new owners by making a PUT request as shown, including the `<organization-id>` and `<user-id>`
 in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### :one::five: Request:
+#### 1️⃣5️⃣ Request:
 
 ```console
 curl -iX PUT \
@@ -1087,7 +1087,7 @@ To list the users of an organization using the GUI, just click on the existing o
 Listing users within an organization is an `owner` or super-admin permission requiring the `X-Auth-token`. Listing users
 can be done by making a GET request to the `/v1/organizations/{{organization-id}}/users` endpoint.
 
-#### :one::six: Request:
+#### 1️⃣6️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1122,7 +1122,7 @@ The response contains the users list.
 To find the role of a user within an organization, send a GET request to the
 `/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles` endpoint.
 
-#### :one::seven: Request:
+#### 1️⃣7️⃣  Request:
 
 ```console
 curl -X GET \
@@ -1149,7 +1149,7 @@ The response returns the role of the given `<user-id>`
 
 Owners and Super-Admins can remove a user from and organization by making a delete request.
 
-#### :one::eight: Request:
+#### 1️⃣8️⃣  Request:
 
 ```console
 curl -X DELETE \

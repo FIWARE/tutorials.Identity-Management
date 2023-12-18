@@ -452,7 +452,7 @@ Unique Identifiers - UUIDs を使用します。
 用するのと同じです。URL `https://localhost:3443/v1/auth/tokens` はセキュアなシス
 テムでも動作するはずです。
 
-#### :one: リクエスト :
+#### 1️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -508,7 +508,7 @@ Connection: keep-alive
 、**Keyrock** アプリケーション内には 1 人のユーザしかいません。 そのユーザは自分
 自身について質問しています。
 
-#### :two: リクエスト :
+#### 2️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -552,7 +552,7 @@ curl -X GET \
 `token` 値は、ユーザが初めてログオンしたときに
 、`d848eb12-889f-433b-9811-6a4fbf0b86ca` を取得しました :
 
-#### :three: リクエスト :
+#### 3️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -656,7 +656,7 @@ REST API は、独自のやり取りをせずにユーザを作成したり修�
 ともに、ユーザ名、電子メール、パスワードを含む POST リクエストを `/v1/users` エ
 ンドポイントに送信します。
 
-#### :four: リクエスト :
+#### 4️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -796,7 +796,7 @@ curl -iX POST \
 その id の下にリストされているユーザが返されます。`X-Auth-token` をヘッダに設定
 してください。
 
-#### :five: リクエスト :
+#### 5️⃣ リクエスト :
 
 To request
 
@@ -837,7 +837,7 @@ curl -X GET \
 ザのみを返すことができます。ユーザのリストの取得は、`/v1/users` エンドポイントへ
 の GET リクエストを行うことで実行できます。
 
-#### :six: リクエスト :
+#### 6️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -885,7 +885,7 @@ curl -X GET \
 ザのみを返すことができます。ユーザのリストの取得は、`/v1/users` エンドポイントへ
 の GET リクエストを行うことで実行できます。
 
-#### :seven: リクエスト :
+#### 7️⃣  リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -927,7 +927,7 @@ GUI 内で、ユーザは設定ページから自分のアカウントを削除�
 DELETE リクエストを `/v1/users/{{user-id}}` エンドポイントに送信することでこれを
 実行できます。`X-Auth-token` ヘッダは、設定されなければなりません。
 
-#### :eight: リクエスト :
+#### 8️⃣  リクエスト :
 
 ```console
 curl -iX DELETE \
@@ -991,7 +991,7 @@ HTTP 動詞 (POST, GET, PATCH および DELETE) に割り当てられます。
 に、`name` と `description` を含む POST リクエストを `/v1/organizations` エンド
 ポイントに送信します。
 
-#### :nine: リクエスト :
+#### 9️⃣ リクエスト :
 
 ```console
 curl -iX POST \
@@ -1030,7 +1030,7 @@ curl -iX POST \
 エストを行うと、その id の下にリストされている組織が返されます。`X-Auth-token`
 は、許可された組織のみが表示されるため、ヘッダに指定する必要があります。
 
-#### :one::zero: リクエスト :
+#### 1️⃣0️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -1064,7 +1064,7 @@ curl -X GET \
 可されます。`/v1/organizations` エンドポイントへの GET リクエストを行うことで、
 ユーザを取得することができます。
 
-#### :one::one: リクエスト :
+#### 1️⃣1️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -1111,7 +1111,7 @@ curl -X GET \
 既存の組織の詳細を修正するために、PATCH リクエストを
 `/v1/organizations/{{organization-id}}` エンドポイントに送信します。
 
-#### :one::two: リクエスト :
+#### 1️⃣2️⃣ リクエスト :
 
 ```console
 curl -iX PATCH \
@@ -1145,7 +1145,7 @@ curl -iX PATCH \
 
 ### 組織を削除
 
-#### :one::three: リクエスト :
+#### 1️⃣3️⃣ リクエスト :
 
 ```console
 curl -iX DELETE \
@@ -1176,7 +1176,7 @@ GUI を使用して組織にユーザを追加するには、まず既存の組�
 `<organization-id>` と `<user-id>` を含む PUT リクエストを作成し、ヘッダに
 `X-Auth-Token` を使用して自分自身を識別する必要があります。
 
-#### :one::four: リクエスト :
+#### 1️⃣4️⃣ リクエスト :
 
 ```console
 curl -iX PUT \
@@ -1207,7 +1207,7 @@ curl -iX PUT \
 ストを作成してヘッダ内に `X-Auth-Token` を使用して自分自身を識別することによって
 、新しいオーナーを作成することもできます。
 
-#### :one::five: リクエスト :
+#### 1️⃣5️⃣ リクエスト :
 
 ```console
 curl -iX PUT \
@@ -1239,7 +1239,7 @@ curl -iX PUT \
 、`/v1/organizations/{{organization-id}}/users` エンドポイントに対して GET リク
 エストを行うことで実行できます。
 
-#### :one::six: リクエスト :
+#### 1️⃣6️⃣ リクエスト :
 
 ```console
 curl -X GET \
@@ -1277,7 +1277,7 @@ curl -X GET \
 、`/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles`
 エンドポイントに GET リクエストを送信します。
 
-#### :one::seven: リクエスト :
+#### 1️⃣7️⃣  リクエスト :
 
 ```console
 curl -X GET \
@@ -1307,7 +1307,7 @@ curl -X GET \
 オーナーとスーパー管理者は、削除リクエストを行うことにより、ユーザを組織から削除
 することができます。
 
-#### :one::eight: リクエスト :
+#### 1️⃣8️⃣  リクエスト :
 
 ```console
 curl -X DELETE \
