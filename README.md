@@ -290,7 +290,8 @@ git checkout NGSI-v2
 ./services create
 ```
 
-> **Note** The initial creation of Docker images can take up to three minutes
+> [!NOTE]
+>  The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services) Bash script provided within
@@ -539,7 +540,8 @@ Once an account is created, the user is sent an eMail to confirm their existence
 The REST API is also able to create and amend users without their own interaction - this could be useful for bulk CRUD
 actions for example.
 
-> **Note** - an eMail server must be configured to send out invites properly, otherwise the invitation may be deleted as
+> [!NOTE]
+>  An eMail server must be configured to send out invites properly, otherwise the invitation may be deleted as
 > spam. For testing purposes, it is easier to update the users table directly: `update user set enabled = 1;`
 
 All the CRUD actions for Users require an `X-Auth-token` header from a previously logged in administrative user to be
