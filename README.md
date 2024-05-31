@@ -1,4 +1,9 @@
-[![FIWARE Banner](https://fiware.github.io/tutorials.Identity-Management/img/fiware.png)](https://www.fiware.org/developers)
+<h1  align="center">
+    <img src="https://fiware.github.io/tutorials.Step-by-Step/img/fiware-farm.png" />
+    <img src="https://img.shields.io/badge/NGSI-LD-d6604d.svg" width="90"/>
+</h1>
+
+## Identity Management
 
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Identity-Management.svg)](https://opensource.org/licenses/MIT)
