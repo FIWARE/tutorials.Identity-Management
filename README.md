@@ -206,9 +206,10 @@ The `idm` container is a web application server listening on two ports:
 -   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
 > [!NOTE]
-> HTTPS should be used throughout for any secured application, but to do this properly,
-> **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and available for testing
-> purposes. The certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
+>
+> HTTPS should be used throughout for any secured application, but to do this properly, **Keyrock** requires a trusted
+> SSL certificate - the default certificate is self-certified and available for testing purposes. The certificates can
+> be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
 >
 > In a production environment, all access should occur over HTTPS, to avoid sending any sensitive information using
 > plain-text. Alternatively HTTP can be used within a private network behind a configured HTTPS Reverse Proxy
@@ -231,10 +232,10 @@ The `idm` container is driven by environment variables as shown:
 | IDM_HTTPS_PORT    | `3443`                  | Port used by the **Keyrock** App Server for HTTP traffic this has been altered from the default 443                          |
 
 > [!NOTE]
-> that this example has secured the MySQL password using **Docker Secrets** By using
-> `IDM_DB_PASS` with the `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as
-> an `ENV` variable in plain-text - either in the `Dockerfile` Image or as an injected variable which could be read
-> using `docker inspect`.
+>
+> that this example has secured the MySQL password using **Docker Secrets** By using `IDM_DB_PASS` with the `_FILE`
+> suffix and referring to a secrets file location. This avoids exposing the password as an `ENV` variable in
+> plain-text - either in the `Dockerfile` Image or as an injected variable which could be read using `docker inspect`.
 >
 > The following list of variables (where used) should be set via secrets with the `_FILE` suffix in a Production System:
 >
@@ -296,7 +297,8 @@ git checkout NGSI-v2
 ```
 
 > [!NOTE]
->  The initial creation of Docker images can take up to three minutes
+>
+> The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services) Bash script provided within
@@ -309,7 +311,8 @@ the repository:
 Where `<command>` will vary depending upon the exercise we wish to activate.
 
 > [!NOTE]
->  If you want to clean up and start over again you can do so with the following command:
+>
+> If you want to clean up and start over again you can do so with the following command:
 >
 > ```console
 > ./services stop
@@ -546,8 +549,9 @@ The REST API is also able to create and amend users without their own interactio
 actions for example.
 
 > [!NOTE]
->  An eMail server must be configured to send out invites properly, otherwise the invitation may be deleted as
-> spam. For testing purposes, it is easier to update the users table directly: `update user set enabled = 1;`
+>
+> An eMail server must be configured to send out invites properly, otherwise the invitation may be deleted as spam. For
+> testing purposes, it is easier to update the users table directly: `update user set enabled = 1;`
 
 All the CRUD actions for Users require an `X-Auth-token` header from a previously logged in administrative user to be
 able to read or modify other user accounts. The standard CRUD actions are assigned to the appropriate HTTP verbs (POST,
@@ -774,7 +778,7 @@ curl -X GET \
 Within the GUI, users can be updated from the settings page. This can also be done from the command-line by making PATCH
 request to `/v1/users/<user-id>` endpoint when the user ID is known. The `X-Auth-token` header must also be set.
 
-#### 7️⃣  Request:
+#### 7️⃣ Request:
 
 ```console
 curl -iX PATCH \
@@ -813,7 +817,7 @@ Within the GUI, users can delete their account from the settings page, selecting
 again a super-admin user can do this from the command-line by sending a DELETE request to the `/v1/users/{{user-id}}`
 endpoint. The `X-Auth-token` header must also be set.
 
-#### 8️⃣  Request:
+#### 8️⃣ Request:
 
 ```console
 curl -iX DELETE \
@@ -1132,7 +1136,7 @@ The response contains the users list.
 To find the role of a user within an organization, send a GET request to the
 `/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles` endpoint.
 
-#### 1️⃣7️⃣  Request:
+#### 1️⃣7️⃣ Request:
 
 ```console
 curl -X GET \
@@ -1159,7 +1163,7 @@ The response returns the role of the given `<user-id>`
 
 Owners and Super-Admins can remove a user from and organization by making a delete request.
 
-#### 1️⃣8️⃣  Request:
+#### 1️⃣8️⃣ Request:
 
 ```console
 curl -X DELETE \
