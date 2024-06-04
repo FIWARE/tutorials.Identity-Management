@@ -32,7 +32,7 @@ Enabler です。このチュートリアルでは、ユーザと組織の作成
     -   [:arrow_forward: ビデオ : Keyrock のイントロダクション](#arrow_forward-video--introduction-to-keyrock)
 -   [前提条件](#prerequisites)
     -   [Docker](#docker)
-    -   [Cygwin](#cygwin)
+    -   [WSL](#wsl)
 -   [アーキテクチャ](#architecture)
     -   [Keyrock の設定](#keyrock-configuration)
     -   [MySQL の設定](#mysql-configuration)
@@ -166,12 +166,10 @@ application) のオブジェクトを保護することができます。
 は[ここ](https://docs.docker.com/compose/install/)に記載されている手順に従う必要
 があります。
 
-<a name="cygwin"></a>
-
-## Cygwin
+## WSL
 
 シンプルな bash スクリプトを使用してサービスを開始します。Windows ユーザは
-[cygwin](http://www.cygwin.com/) をダウンロードして、Windows 上の Linux ディスト
+[を使用して Windows に Linux をインストールする方法](https://learn.microsoft.com/ja-jp/windows/wsl/install) をダウンロードして、Windows 上の Linux ディスト
 リビューションと同様のコマンドライン機能を提供する必要があります。
 
 <a name="architecture"></a>
