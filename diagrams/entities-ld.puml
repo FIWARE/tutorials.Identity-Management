@@ -1,0 +1,68 @@
+@startuml
+skinparam object {
+  BackgroundColor #f5f5f5
+  ArrowColor #4c4c4c
+  BorderColor #ff7059
+}
+
+object Realm
+Realm : name (e.g. FMIS)
+
+object Client
+Client : clientId
+Client : name
+Client : secret
+
+object Group
+Group : id
+Group : name
+Group : path
+
+object User
+User : id
+User : username
+User : email
+User : password
+
+object Role
+Role : id
+Role : name
+Role : description
+
+object Permission
+Permission : name
+Permission : resource
+Permission : scope
+
+object IoTAgent
+IoTAgent : clientId
+IoTAgent : secret
+
+object PEPProxy
+PEPProxy : clientId
+PEPProxy : secret
+
+' Keycloak Hierarchy
+Realm "1" *-- "*" Client : manages >
+Realm "1" *-- "*" Group : manages >
+Realm "1" *-- "*" User : manages >
+Realm "1" *-- "*" Role : defines (Realm Roles) >
+
+' Client Specializations
+Client <|-- IoTAgent
+Client <|-- PEPProxy
+
+' Client specific Roles
+Client "1" *-- "*" Role : defines (Client Roles) >
+
+' Memberships and Assignments
+Group "1" o-- "*" User : has members >
+Group "1" o-- "*" Role : mapped to >
+User "1" o-- "*" Role : assigned >
+
+' Authorization Services
+Role "1" o-- "*" Permission : grants >
+
+' Direct associations
+User "0..*" - "0..*" Group : belongs to
+@enduml
