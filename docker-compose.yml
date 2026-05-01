@@ -1,77 +1,80 @@
 # WARNING: Do not deploy this tutorial configuration directly to a production environment
 #
-# The tutorial docker-compose files have not been written for production deployment and will not 
-# scale. A proper architecture has been sacrificed to keep the narrative focused on the learning 
-# goals, they are just used to deploy everything onto a single Docker machine. All FIWARE components 
-# are running at full debug and extra ports have been exposed to allow for direct calls to services. 
+# The tutorial docker-compose files have not been written for production deployment and will not
+# scale. A proper architecture has been sacrificed to keep the narrative focused on the learning
+# goals, they are just used to deploy everything onto a single Docker machine. All FIWARE components
+# are running at full debug and extra ports have been exposed to allow for direct calls to services.
 # They also contain various obvious security flaws - passwords in plain text, no load balancing,
-# no use of HTTPS and so on. 
-# 
+# no use of HTTPS and so on.
+#
 # This is all to avoid the need of multiple machines, generating certificates, encrypting secrets
-# and so on, purely so that a single docker-compose file can be read as an example to build on, 
-# not use directly. 
-# 
+# and so on, purely so that a single docker-compose file can be read as an example to build on,
+# not use directly.
+#
 # When deploying to a production environment, please refer to the Helm Repository
 # for FIWARE Components in order to scale up to a proper architecture:
-# 
+#
 # see: https://github.com/FIWARE/helm-charts/
 #
 services:
-  # Keyrock is an Identity Management Front-End
-  keyrock:
+  # Keycloak is an open-source Identity and Access Management solution
+  keycloak:
     labels:
       org.fiware: 'tutorial'
-    image: quay.io/fiware/idm:${KEYROCK_VERSION}
-    container_name: fiware-keyrock
-    hostname: keyrock
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    container_name: fiware-keycloak
+    hostname: keycloak
     networks:
       default:
         ipv4_address: 172.18.1.5
     depends_on:
-      - mysql-db
+      postgres-keycloak:
+        condition: service_healthy
     ports:
-      - "${KEYROCK_PORT}:${KEYROCK_PORT}" # localhost:3005
-      - "${KEYROCK_HTTPS_PORT}:${KEYROCK_HTTPS_PORT}" # localhost:3443
+      - "${KEYCLOAK_PORT}:8080"
     environment:
-      - "DEBUG=idm:*"
-      - "IDM_DB_HOST=mysql-db"
-      - "IDM_DB_PASS_FILE=/run/secrets/my_secret_data"
-      - "IDM_DB_USER=root"
-      - "IDM_PORT=${KEYROCK_PORT}"
-      - "IDM_HOST=http://localhost:${KEYROCK_PORT}"
-      - "IDM_HTTPS_ENABLED=${IDM_HTTPS_ENABLED}"
-      - "IDM_HTTPS_PORT=${KEYROCK_HTTPS_PORT}"
-      - "IDM_ADMIN_USER=admin"
-      - "IDM_ADMIN_EMAIL=admin@test.com"
-      - "IDM_ADMIN_PASS=1234"
-      - IDM_CSP_FORM_ACTION=*
-    secrets:
-      - my_secret_data
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://postgres-keycloak/keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=1234
+      - KC_HTTP_PORT=8080
+      - KC_HOSTNAME_STRICT=false
+      - KC_HTTP_ENABLED=true
+      - KC_HEALTH_ENABLED=true
+      - KC_LOG_LEVEL=INFO
+    command: start-dev --import-realm
+    volumes:
+      - ./realm-config:/opt/keycloak/data/import:ro
     healthcheck:
-      interval: 5s
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '\"status\": \"UP\"'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
 
-  # Database
-  mysql-db:
-    restart: always
+  # Database used by Keycloak for persistent storage
+  postgres-keycloak:
     labels:
       org.fiware: 'tutorial'
-    image: mysql:${MYSQL_DB_VERSION}
-    hostname: mysql-db
-    container_name: db-mysql
-    expose:
-      - "${MYSQL_DB_PORT}"
-    ports:
-      - "${MYSQL_DB_PORT}:${MYSQL_DB_PORT}"
+    image: postgres:${POSTGRES_VERSION}
+    container_name: db-postgres
+    hostname: postgres-keycloak
     networks:
       default:
         ipv4_address: 172.18.1.6
     environment:
-      - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
-      - "MYSQL_ROOT_HOST=172.18.1.5" # Allow Keyrock to access this database
+      - POSTGRES_DB=keycloak
+      - POSTGRES_USER=keycloak
+      - POSTGRES_PASSWORD=password
     volumes:
-      - mysql-db:/var/lib/mysql
-    secrets:
-      - my_secret_data
+      - postgres-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "keycloak"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 networks:
   default:
@@ -80,9 +83,6 @@ networks:
     ipam:
       config:
         - subnet: 172.18.1.0/24
-volumes:
-  mysql-db: ~
 
-secrets:
-  my_secret_data:
-    file: ./secrets.txt
+volumes:
+  postgres-db: ~

@@ -1,0 +1,90 @@
+#!/bin/ash
+# shellcheck shell=ash
+#
+#  Creates tutorial users and assigns them to groups in the farm-management Keycloak realm.
+#  Runs inside the quay.io/curl/curl container on the fiware_default network.
+
+set -e
+
+KC="http://${KEYCLOAK_HOST:-keycloak}:${KEYCLOAK_PORT:-8080}"
+REALM="farm-management"
+
+# ── Obtain admin token from master realm ─────────────────────────────────────
+ADMIN_TOKEN=$(curl -s -X POST "${KC}/realms/master/protocol/openid-connect/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "grant_type=password" \
+  --data-urlencode "client_id=admin-cli" \
+  --data-urlencode "username=admin" \
+  --data-urlencode "password=1234" \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])")
+
+echo "Admin token obtained"
+
+# ── Helper: create user, return id ──────────────────────────────────────────
+create_user () {
+  local USERNAME="$1"
+  local FIRST="$2"
+  local LAST="$3"
+  local EMAIL="$4"
+  local PASSWORD="$5"
+
+  curl -s -o /dev/null -X POST "${KC}/admin/realms/${REALM}/users" \
+    -H "Authorization: Bearer ${ADMIN_TOKEN}" \
+    -H "Content-Type: application/json" \
+    --data-raw "{
+      \"username\": \"${USERNAME}\",
+      \"firstName\": \"${FIRST}\",
+      \"lastName\": \"${LAST}\",
+      \"email\": \"${EMAIL}\",
+      \"enabled\": true,
+      \"credentials\": [{\"type\": \"password\", \"value\": \"${PASSWORD}\", \"temporary\": false}]
+    }"
+  echo "Created user: ${USERNAME}"
+}
+
+# ── Helper: assign user to group ────────────────────────────────────────────
+assign_to_group () {
+  local USERNAME="$1"
+  local GROUP_NAME="$2"
+
+  USER_ID=$(curl -s "${KC}/admin/realms/${REALM}/users?username=${USERNAME}&exact=true" \
+    -H "Authorization: Bearer ${ADMIN_TOKEN}" \
+    | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id']) if d else sys.exit(1)")
+
+  GROUP_ID=$(curl -s "${KC}/admin/realms/${REALM}/groups?search=${GROUP_NAME}&exact=true" \
+    -H "Authorization: Bearer ${ADMIN_TOKEN}" \
+    | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id']) if d else sys.exit(1)")
+
+  curl -s -o /dev/null -X PUT \
+    "${KC}/admin/realms/${REALM}/users/${USER_ID}/groups/${GROUP_ID}" \
+    -H "Authorization: Bearer ${ADMIN_TOKEN}"
+  echo "Assigned ${USERNAME} → ${GROUP_NAME}"
+}
+
+# ── Create users ─────────────────────────────────────────────────────────────
+create_user "alice"  "Alice"  "Administrator" "alice@fiware.farm"  "test"
+create_user "bob"    "Bob"    "Farmer"        "bob@fiware.farm"    "test"
+create_user "carol"  "Carol"  "Livestock"     "carol@fiware.farm"  "test"
+create_user "dave"   "Dave"   "Crops"         "dave@fiware.farm"   "test"
+create_user "eve"    "Eve"    "Equipment"     "eve@fiware.farm"    "test"
+create_user "frank"  "Frank"  "Worker"        "frank@fiware.farm"  "test"
+create_user "grace"  "Grace"  "Worker"        "grace@fiware.farm"  "test"
+create_user "harry"  "Harry"  "Irrigation"    "harry@fiware.farm"  "test"
+create_user "ivy"    "Ivy"    "Tractor"       "ivy@fiware.farm"    "test"
+create_user "jenny"  "Jenny"  "Veterinarian"  "jenny@fiware.farm"  "test"
+create_user "ken"    "Ken"    "Agronomist"    "ken@fiware.farm"    "test"
+
+# ── Assign users to groups ───────────────────────────────────────────────────
+assign_to_group "bob"   "farm-management"
+assign_to_group "carol" "livestock-team"
+assign_to_group "frank" "livestock-team"
+assign_to_group "grace" "livestock-team"
+assign_to_group "dave"  "crop-team"
+assign_to_group "harry" "crop-team"
+assign_to_group "eve"   "equipment-team"
+assign_to_group "ivy"   "equipment-team"
+assign_to_group "jenny" "external-consultants"
+assign_to_group "ken"   "external-consultants"
+
+echo ""
+echo "Tutorial data loaded successfully"

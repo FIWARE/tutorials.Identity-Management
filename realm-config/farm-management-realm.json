@@ -1,0 +1,33 @@
+{
+  "id": "farm-management",
+  "realm": "farm-management",
+  "displayName": "Farm Management System",
+  "enabled": true,
+  "registrationAllowed": false,
+  "resetPasswordAllowed": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "sslRequired": "external",
+  "groups": [
+    {
+      "name": "farm-management",
+      "path": "/farm-management"
+    },
+    {
+      "name": "livestock-team",
+      "path": "/livestock-team"
+    },
+    {
+      "name": "crop-team",
+      "path": "/crop-team"
+    },
+    {
+      "name": "equipment-team",
+      "path": "/equipment-team"
+    },
+    {
+      "name": "external-consultants",
+      "path": "/external-consultants"
+    }
+  ]
+}
