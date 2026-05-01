@@ -56,7 +56,7 @@ waitForKeycloak () {
     while ! [ "$(docker inspect --format='{{.State.Health.Status}}' fiware-keycloak 2>/dev/null)" == "healthy" ]
     do
         echo -e "Keycloak health: $(docker inspect --format='{{.State.Health.Status}}' fiware-keycloak 2>/dev/null) (waiting for healthy)"
-        sleep 5
+        sleep 10
     done
     echo -e " \033[1;32mdone\033[0m"
 }
@@ -67,8 +67,8 @@ loadData () {
         -v "$(pwd)/import_users:/import_users" \
         -e KEYCLOAK_HOST=keycloak \
         -e KEYCLOAK_PORT=8080 \
-        --entrypoint /bin/ash \
-        "quay.io/curl/curl:${CURL_VERSION}" /import_users
+        --entrypoint /bin/sh \
+        python:3-alpine -c "apk add --no-cache curl && /import_users"
 }
 
 command="$1"

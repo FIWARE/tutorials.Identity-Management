@@ -10,6 +10,9 @@ KC="http://${KEYCLOAK_HOST:-keycloak}:${KEYCLOAK_PORT:-8080}"
 REALM="farm-management"
 
 # ── Obtain admin token from master realm ─────────────────────────────────────
+# Wait for Keycloak to fully bootstrap
+sleep 10
+
 ADMIN_TOKEN=$(curl -s -X POST "${KC}/realms/master/protocol/openid-connect/token" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   --data-urlencode "grant_type=password" \
