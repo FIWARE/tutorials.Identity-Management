@@ -104,6 +104,15 @@ Identity and Access Management ソリューションであり、OpenID Connect �
     後のチュートリアルでは、NGSI-LD コンテキストブローカープロキシが `farm-management` レルムの
     クライアントとして登録されます。
 
+さらに、FIWARE アプリケーション内では、次の 2 つの人間以外のアプリケーション・オブジェクトを保護できます:
+
+-   **IoTAgent** — IoT センサーと Context Broker 間のプロキシ。
+-   **PEPProxy** — ユーザの権限を要求する Generic Enabler 間で使用するミドルウェア。
+
+各オブジェクト間の関係を以下に示します:
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/entities-ld.png)
+
 # 前提条件
 
 ## Docker
@@ -242,6 +251,9 @@ git checkout NGSI-LD
 
 `http://localhost:3005` の管理コンソールが Keycloak 管理の主要 GUI です。
 ユーザ名 `admin`、パスワード `1234` でログインして、マスターレルムにアクセスします。
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/keycloak-log-in.png)
+
 `farm-management` レルムで作業するには、左上のレルムドロップダウンから選択してください。
 
 ### 管理者トークンを取得
@@ -347,6 +359,8 @@ curl -iX POST \
 #### GUI
 
 ユーザは `http://localhost:3005` の管理コンソールで作成できます。
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/keycloak-users.png)
 
 **レルム: farm-management → ユーザ → ユーザを追加** に移動します。
 
@@ -464,6 +478,12 @@ Keycloak では、**グループ** はロールをまとめて割り当てるこ
 | `external-consultants`   | 読み取り専用アクセスを持つ外部専門家   |
 
 ## グループ CRUD アクション
+
+#### GUI
+
+グループは管理コンソール（**レルム: farm-management → グループ → グループを作成**）で管理されます。
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/keycloak-groups.png)
 
 ### グループを作成
 

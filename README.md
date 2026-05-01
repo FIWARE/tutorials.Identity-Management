@@ -103,6 +103,15 @@ The following common objects are found within the **Keycloak** Identity Manageme
 -   **Client** — An application or service able to request authentication. In later tutorials the NGSI-LD context broker
     proxy is registered as a client of the `farm-management` realm.
 
+Additionally, further non-human application objects can be secured within an application:
+
+-   **IoTAgent** — a proxy between IoT Sensors and the Context Broker.
+-   **PEPProxy** — a middleware for use between generic enablers challenging the rights of a user.
+
+The relationship between the objects can be seen below:
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/entities-ld.png)
+
 # Prerequisites
 
 ## Docker
@@ -298,6 +307,8 @@ subsequent requests return `401 Unauthorized`.
 The Admin Console at `http://localhost:3005` is the primary GUI for Keycloak administration. Log in with the username
 `admin` and password `1234` to access the master realm.
 
+![](https://fiware.github.io/tutorials.Identity-Management/img/keycloak-log-in.png)
+
 To work within the `farm-management` realm, select it from the realm drop-down in the top-left corner.
 
 ### Obtain an Admin Token
@@ -425,6 +436,8 @@ The following people have no legitimate access and should be denied:
 #### GUI
 
 Users can be created in the Keycloak Admin Console at `http://localhost:3005`.
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/keycloak-users.png)
 
 Navigate to: **Realm: farm-management → Users → Add user**
 
@@ -593,6 +606,8 @@ The `farm-management` realm is pre-configured with the following groups, created
 #### GUI
 
 Groups are managed in the Admin Console at **Realm: farm-management → Groups → Create group**.
+
+![](https://fiware.github.io/tutorials.Identity-Management/img/keycloak-groups.png)
 
 #### REST API
 
