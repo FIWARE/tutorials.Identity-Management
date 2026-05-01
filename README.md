@@ -68,10 +68,9 @@ The tutorial demonstrates examples of interactions using the **Keycloak** Admin 
 
 # Identity Management
 
-> "If one meets a powerful person — ask them five questions: 'What power have you got? Where did you get it from? In
-> whose interests do you exercise it? To whom are you accountable? And how can we get rid of you?'"
+> "A fence should be horse-high, pig-tight and bull-strong."
 >
-> — Anthony Wedgwood Benn (The Five Essential Questions of Democracy)
+> — Old Farmer's Proverb
 
 In computer security terminology, Identity management is the security and business discipline that "enables the right
 individuals to access the right resources at the right times and for the right reasons".<sup>[1](#footnote1)</sup> It
