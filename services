@@ -77,7 +77,7 @@ case "${command}" in
         echo "usage: services [create|start|stop]"
         ;;
     "start")
-        export $(cat .env | grep "#" -v)
+        set -a; source .env; set +a
         stoppingContainers
         echo -e "Starting containers: \033[1;34mKeycloak\033[0m and a \033[1mPostgreSQL\033[0m database."
         echo -e "- \033[1;34mKeycloak\033[0m is the Identity and Access Management server"
@@ -91,11 +91,11 @@ case "${command}" in
         echo -e "Now open \033[4mhttp://localhost:${KEYCLOAK_PORT}\033[0m"
         ;;
     "stop")
-        export $(cat .env | grep "#" -v)
+        set -a; source .env; set +a
         stoppingContainers
         ;;
     "create")
-        export $(cat .env | grep "#" -v)
+        set -a; source .env; set +a
         echo "Pulling Docker images"
         docker pull -q "quay.io/curl/curl:${CURL_VERSION}"
         ${dockerCmd} pull --ignore-pull-failures
