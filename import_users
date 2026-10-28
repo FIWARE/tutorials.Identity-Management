@@ -13,7 +13,7 @@ REALM="farm-management"
 # Wait for Keycloak to fully bootstrap
 sleep 10
 
-ADMIN_TOKEN=$(curl -s -X POST "${KC}/realms/master/protocol/openid-connect/token" \
+ADMIN_TOKEN=$(curl -sS -X POST "${KC}/realms/master/protocol/openid-connect/token" \
   -H "Content-Type: application/x-www-form-urlencoded" \
   --data-urlencode "grant_type=password" \
   --data-urlencode "client_id=admin-cli" \
@@ -31,7 +31,7 @@ create_user () {
   local EMAIL="$4"
   local PASSWORD="$5"
 
-  curl -s -o /dev/null -X POST "${KC}/admin/realms/${REALM}/users" \
+  curl -sS -o /dev/null -X POST "${KC}/admin/realms/${REALM}/users" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     -H "Content-Type: application/json" \
     --data-raw "{
@@ -50,15 +50,15 @@ assign_to_group () {
   local USERNAME="$1"
   local GROUP_NAME="$2"
 
-  USER_ID=$(curl -s "${KC}/admin/realms/${REALM}/users?username=${USERNAME}&exact=true" \
+  USER_ID=$(curl -sS "${KC}/admin/realms/${REALM}/users?username=${USERNAME}&exact=true" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id']) if d else sys.exit(1)")
 
-  GROUP_ID=$(curl -s "${KC}/admin/realms/${REALM}/groups?search=${GROUP_NAME}&exact=true" \
+  GROUP_ID=$(curl -sS "${KC}/admin/realms/${REALM}/groups?search=${GROUP_NAME}&exact=true" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}" \
     | python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['id']) if d else sys.exit(1)")
 
-  curl -s -o /dev/null -X PUT \
+  curl -sS -o /dev/null -X PUT \
     "${KC}/admin/realms/${REALM}/users/${USER_ID}/groups/${GROUP_ID}" \
     -H "Authorization: Bearer ${ADMIN_TOKEN}"
   echo "Assigned ${USERNAME} → ${GROUP_NAME}"
